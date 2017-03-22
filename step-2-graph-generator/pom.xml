@@ -6,7 +6,7 @@
     <!-- =================================================================== -->        
     <modelVersion>4.0.0</modelVersion>
     <groupId>gd</groupId>
-    <artifactId>gamediscovery-data-extractor</artifactId>
+    <artifactId>gamediscovery-graph-generator</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     
