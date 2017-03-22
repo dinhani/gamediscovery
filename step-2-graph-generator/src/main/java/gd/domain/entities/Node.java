@@ -34,12 +34,13 @@ public class Node implements Serializable {
     private boolean shouldBoostRelevance = false;
 
     // BASIC DATA
-    private String generatedId = ""; // the id that will be persisted in Neo4J    
-    private String id = "";    // the id generated from wikipedia link or generated from the name
+    private String generatedId = "";                              // the id that will be persisted in Neo4J    
+    private String id = "";                                       // the id generated from wikipedia link or generated from the name
+    private String idWikipedia = "";                              // the Wikipedia ID (it is in the URL)
     private List<String> alternativeIds = Collections.EMPTY_LIST; // alternative ids generated from the id
-    private String image = ""; // the link to wikipedia    
-    private String name = "";  // the name from wikidata
-    private final Set<String> aliases = Sets.newHashSet(); // name aliases    
+    private String image = "";                                    // the image filename (it is using the same value of idWikipedia, but without the case normalization)
+    private String name = "";                                     // the name from wikidata
+    private final Set<String> aliases = Sets.newHashSet();        // name aliases    
 
     // DBPEDIA
     private Map<String, List<String>> dbpediaAttributes = Collections.EMPTY_MAP;
@@ -310,6 +311,10 @@ public class Node implements Serializable {
         this.name = trimmedName;
     }
 
+    public void setIdWikipedia(String idWikipedia) {
+        this.idWikipedia = idWikipedia;
+    }
+
     public void setImage(String image) {
         this.image = image.toLowerCase();
     }
@@ -467,6 +472,10 @@ public class Node implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public String getIdWikipedia() {
+        return idWikipedia;
     }
 
     public String getImage() {
