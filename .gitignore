@@ -1,0 +1,47 @@
+# BINARIES
+.exe
+
+# DATABASE FILES
+*.db
+
+# LOG files
+*.log
+
+# IDE FILES
+**/.settings
+**/.classpath
+**/.project
+**/nbproject
+**/.vscode
+
+# JAVA FILES
+**/target/
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
+# NODE FILES
+**/node_modules
+
+# PYTHON FILES
+**/__pycache__
+
+# RUBY FILES
+.jbundler
+.mvn
+pkg
+Gemfile.lock
+Jarfile.lock
+
+# R FILES
+.Rhistory
+*.pdf
+
+# PENTAHO FILES
+**/db.cache-*
+
+# PROJECT SPECIFIC
+!step-1-data-download/_shared/lib/*.jar
+step-3-site/src/main/webapp/app/assets/lib

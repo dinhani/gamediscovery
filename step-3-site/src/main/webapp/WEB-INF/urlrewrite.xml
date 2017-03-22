@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+
+
+<urlrewrite>
+    <rule>
+        <name>Redirect to WWW</name>
+        <condition name="host" operator="notequal">^www.gamediscovery.net</condition>
+        <condition name="host" operator="notequal">^localhost</condition>
+        <condition name="host" operator="notequal">^$</condition>
+        
+        <from>^/(.*)</from>
+        <to type="redirect" last="true">http://www.gamediscovery.net/$1?%{query-string}</to>
+    </rule>
+</urlrewrite>
+

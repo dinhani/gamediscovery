@@ -1,0 +1,38 @@
+/* ===========================================================================*/
+/* ANGULAR CLOAK */
+/* ===========================================================================*/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+/* ===========================================================================*/
+/* CARD */
+/* ===========================================================================*/
+/* Remove high priority z-index from hovered card */
+.card:hover{
+    z-index: 0 !important;
+}
+
+/* ===========================================================================*/
+/* LIST */
+/* ===========================================================================*/
+.list .item{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* ===========================================================================*/
+/* HORIZONTAL LIST */
+/* ===========================================================================*/
+/* changes from left spacing to right spacing */
+.ui.horizontal.list > .item {
+    margin-right: 1rem;
+}
+.ui.horizontal.list:not(.celled) > .item {
+    margin-left: 0;
+    padding-left: 0;
+}
+.ui.horizontal.list:not(.celled) > .item:last-child {
+    margin-right: 0em !important;
+    padding-right: 0em !important;
+}

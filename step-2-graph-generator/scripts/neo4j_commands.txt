@@ -1,0 +1,7 @@
+cypher CREATE INDEX ON :ConceptEntry(uid);
+cypher CREATE INDEX ON :Game(uid);
+cypher MATCH (n:ConceptEntry) OPTIONAL MATCH (n)-[r]-(m) WITH n, m WHERE m IS NULL DELETE n;
+cypher MATCH (n:Platform)-[]-(g:Game) WITH n, count(*) as c WHERE c < 30 DETACH DELETE n;
+cypher MATCH (n:GameMode)-[]-(g:Game) WITH n, count(*) as c WHERE c < 30 DETACH DELETE n;
+cypher MATCH (n:Genre)-[]-(g:Game) WITH n, count(*) as c WHERE c < 30 DETACH DELETE n;
+cypher MATCH (n:Series)-[]-(g:Game) WITH n, count(*) as c WHERE c < 2 DETACH DELETE n;

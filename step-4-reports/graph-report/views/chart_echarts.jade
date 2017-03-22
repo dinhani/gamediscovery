@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    link(rel="stylesheet" href="assets/semantic-ui/dist/semantic.min.css")
+    script(src="assets/echarts/dist/echarts.min.js")
+
+  body.ui.container
+    // header
+    h1.ui.top.attached.header !{title}
+    // chart
+    .ui.bottom.attached.segment
+      #chart(style="width: 100%; height: #{height}px;")
+
+//- script to render
+script.
+  var chartoptions = !{data}
+  var chart = echarts.init(document.getElementById('chart'), 'blue');
+  chart.setOption(chartoptions);

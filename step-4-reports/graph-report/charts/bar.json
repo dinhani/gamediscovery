@@ -1,0 +1,12 @@
+{
+  "grid"   : { "x": 150, "y": 0},
+  "calculable": true,
+
+  "title":   {"text": ""},
+
+  "xAxis" : [{"type": "value",    "data": []}],
+  "yAxis" : [{"type": "category", "data": [], "axisLabel":{"rotate":0, "interval":0}}],
+  "series": [{"type": "bar",      "data": [], "barWidth":30, "itemStyle": {"normal": {"label": {"show": true, "position": "right"}}}}],
+
+  "tooltip": {"triger":"item"}
+}

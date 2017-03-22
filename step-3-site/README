@@ -1,0 +1,12 @@
+## Dependencies
+
+* Java 8
+Used to execute the main web application.
+
+* JRuby 9
+Used to execute information extraction.
+
+* Ruby 2.2 (Selenium Webdriver gem)
+* PhantomJS
+Used when prerendering pages for Google and Bing
+

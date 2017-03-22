@@ -1,0 +1,6 @@
+require 'java'
+require 'jbundler'
+require_relative './input/OptParser.rb'
+require_relative './input/Reader.rb'
+require_relative './processing/ID.rb'
+require_relative './processing/Executor.rb'

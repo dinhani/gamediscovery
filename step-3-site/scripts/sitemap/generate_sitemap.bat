@@ -1,0 +1,1 @@
+jruby generate_sitemap.rb

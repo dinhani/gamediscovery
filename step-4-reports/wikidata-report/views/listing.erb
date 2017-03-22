@@ -1,0 +1,25 @@
+<table border="1">
+  <!-- HEADER -->
+  <tr>
+    <th>Name</th>
+    <th>Wikidata</th>
+    <th>Wikipedia</th>
+  </tr>
+
+  <!-- DATA -->
+  <% items.each do |item| %>
+    <tr>
+      <td>
+        <%= item.name %>
+      </td>
+
+      <td>
+        <a href="https://www.wikidata.org/wiki/<%= item.id %>" target="_blank"><%= item.id %></a>
+      </td>
+
+      <td>
+        <a href="<%= item.link %>" target="_blank">Wikipedia</a>
+      </td>
+  </tr>
+  <% end %>
+</table>

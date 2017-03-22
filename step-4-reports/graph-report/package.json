@@ -1,0 +1,18 @@
+{
+  "name": "gamediscovery-graph-report",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "express": "4.15.2",
+    "jade": "^1.11.0",
+    "echarts": "^3.2.2",
+    "semantic-ui":"2.2.9",
+    "neo4j-driver": "^1.1.0-M01",
+    "clone": "^1.0.2",
+    "nodemon": "^1.10.0"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "MIT"
+}

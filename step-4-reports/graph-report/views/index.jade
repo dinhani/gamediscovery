@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    link(rel="stylesheet" href="assets/semantic-ui/dist/semantic.min.css")
+  body.ui.container
+
+    // header
+    h1.ui.top.attached.header Games by:
+
+    // body
+    .ui.bottom.attached.segment
+      .ui.four.column.grid
+        each subjectLabel in labels
+          .column
+            h2
+              a(href="gamesByTypeEntry?type=#{subjectLabel}") #{subjectLabel}

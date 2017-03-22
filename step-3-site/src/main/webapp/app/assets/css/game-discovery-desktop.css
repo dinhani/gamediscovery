@@ -1,0 +1,85 @@
+/* SMALL MONITOR */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    html, body{
+        font-size: 10px !important; 
+    }
+    .concept-entry-image{
+        height: 260px;        
+    }
+    .concept-entry-image img{
+        max-height: 260px;
+    }    
+    #game-cover img{
+        height: 195px !important;
+    }    
+}
+
+/* LARGE MONITOR */
+@media only screen and (min-width: 1200px) {
+    html, body{
+        font-size: 12px !important; 
+    }
+    .concept-entry-image{
+        height: 310px;        
+    }
+    .concept-entry-image img{
+        max-height: 310px;
+    }
+    #game-cover img{        
+        height: 205px !important;        
+    }
+}
+
+/* WIDESCREEN */
+@media only screen and (min-width: 1920px) {
+    html, body{
+        font-size: 14px !important; 
+    }
+    .concept-entry-image{
+        height: 310px;        
+    }
+    .concept-entry-image img{
+        max-height: 310px;
+    }
+    #game-cover img{        
+        height: 205px !important;
+    }
+
+}
+
+/* SHARED */
+@media only screen and (min-width: 992px) {
+    /* ===========================================================================*/
+    /* PAGE LAYOUT (GENERAL) */
+    /* ===========================================================================*/        
+    #app-view > div {        
+        min-height: 100%;        
+    }    
+
+    /* ===========================================================================*/
+    /* PAGE LAYOUT (SPECIFIC) */
+    /* ===========================================================================*/    
+    /* GAME */    
+    #game-images img{
+        display: inline-block; 
+        height: 80px;
+        width: 16%; 
+        margin-right: 0.6%;  
+        margin-bottom: 0.6%;
+    }    
+
+    /* ===========================================================================*/
+    /* HELPERS */
+    /* ===========================================================================*/        
+    .desktop-scroll-vertical{
+        overflow-x: hidden;
+        overflow-y: auto;        
+    }
+    .desktop-hidden-vertical{
+        overflow-x: hidden;
+        overflow-y: hidden;        
+    }
+    .mobile-only{
+        display: none !important;
+    }    
+}
