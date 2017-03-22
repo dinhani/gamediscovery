@@ -1,3 +1,4 @@
+require 'jbundler'
 require 'neo4j'
 require 'jrjackson'
 
@@ -19,8 +20,6 @@ java_import 'org.apache.lucene.store.SimpleFSDirectory'
 
 java_import 'org.neo4j.driver.v1.AuthTokens'
 java_import 'org.neo4j.driver.v1.GraphDatabase'
-
-
 
 # ==============================================================================
 # CONSTANTS
