@@ -17,6 +17,8 @@ These tools should be available in system the `PATH`.
 * JRuby
   * bundle
   * jbundle
+* Node
+  * bower
 * PostgreSQL
   * psql
 * Neo4J
