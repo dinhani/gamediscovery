@@ -129,10 +129,10 @@ end
 # EXECUTION
 # ==============================================================================
 puts "1) Deleting current output files"
-#generate_nodes()
+generate_nodes()
 
 puts "2) Recreating nodes.csv"
-#generate_relationships()
+generate_relationships()
 
 puts "3) Writing Neo4J command to run after creation"
 write_commands();
