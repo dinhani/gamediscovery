@@ -22,10 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @GDService
 public class CSV {
-    
+
     // ENV VARS    
     private final String PARSED_DATA_DIRECTORY = "GD_DATA_PARSED";
-    
+
     // DATA
     private String nodesFolder;
     private String relationshipsFolder;
@@ -43,23 +43,14 @@ public class CSV {
     public void init() {
         this.nodesFolder = environment.readValue(PARSED_DATA_DIRECTORY) + "/neo4j/nodes/";
         new File(nodesFolder).mkdirs();
-        
-        this.relationshipsFolder = environment.readValue(PARSED_DATA_DIRECTORY) + "/neo4j/relationships/";        
-        new File(relationshipsFolder).mkdirs();        
+
+        this.relationshipsFolder = environment.readValue(PARSED_DATA_DIRECTORY) + "/neo4j/relationships/";
+        new File(relationshipsFolder).mkdirs();
     }
 
     // =========================================================================
     // CREATE
-    // =========================================================================
-    /**
-     * Write a CSV file containing data about the Neo4J nodes that should be
-     * created. A row will be created for each distinct id (including the
-     * default id and the alternative ids).
-     *
-     * @param type It is used to set the filename and also the label of the node
-     * @param nodes The nodes that will be written to the file
-     * @throws IOException
-     */
+    // =========================================================================    
     public void createNodesFile(Class<? extends ConceptEntry> type, Collection<Node> nodes) throws IOException {
         LOGGER.debug("Creating CSV {} nodes | size={}", type.getSimpleName(), nodes.size());
 
@@ -74,22 +65,13 @@ public class CSV {
                     node.getName(),
                     node.getAlias(),
                     node.getImage(),
-                    node.getVideo(),                    
+                    node.getVideo(),
                     node.getSummary()
                 });
             }
         }
     }
 
-    /**
-     * Write a CSV file containing data about the relationship between Neo4J
-     * nodes that should be created.
-     *
-     * @param type Used only for logging purpose
-     * @param sourceEntries The entries that will have their relationships
-     * written
-     * @throws IOException
-     */
     public void createRelationshipsFile(Class<? extends ConceptEntry> type, Collection<ConceptEntry> sourceEntries) throws IOException {
         LOGGER.debug("Creating CSV {} relationships | size={}", type.getSimpleName(), sourceEntries.size());
 

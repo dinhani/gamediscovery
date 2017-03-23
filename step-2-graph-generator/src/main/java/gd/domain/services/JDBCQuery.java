@@ -61,7 +61,7 @@ public class JDBCQuery {
     // =========================================================================
     public Set<Node> findDBPediaArticles() {
         String sql = ""
-                + "SELECT dac.id_wikipedia as id, dac.id_wikipedia as name, dac.categories::text as dbpediaCategories "
+                + "SELECT dac.id_wikipedia as id, dac.id_wikipedia as name, dac.id_wikipedia as wikipediaId, dac.categories::text as dbpediaCategories "
                 + "\n FROM dbpedia_article_categories dac "
                 + "\n WHERE " + whereForRegexOrCategories("dac.id", "dac.categories");
         return jdbc.executeQuery(sql);
@@ -69,7 +69,7 @@ public class JDBCQuery {
 
     public Set<Node> findDBPediaCategories() {
         String sql = ""
-                + "SELECT dcc.id_wikipedia as id, dcc.id_wikipedia as name, dcc.categories::text as dbpediaCategories "
+                + "SELECT dcc.id_wikipedia as id, dcc.id_wikipedia as name, dcc.id_wikipedia as wikipediaId, dcc.categories::text as dbpediaCategories "
                 + "\n FROM dbpedia_category_categories dcc "
                 + "\n WHERE " + whereForRegexOrCategories("dcc.id_wikipedia", "dcc.categories");
         return jdbc.executeQuery(sql);
@@ -78,6 +78,7 @@ public class JDBCQuery {
     public Set<Node> findWikidataEntities() {
         String sql = ""
                 + "SELECT DISTINCT ON (id) COALESCE(NULLIF(we.id_wikipedia,''), we.id) as id, "
+                + "we.id_wikipedia as wikipediaId, "
                 + "we.name as name, "
                 + "we.link as image, "
                 + "we.id_wikidata as wikidataId, "
@@ -98,7 +99,7 @@ public class JDBCQuery {
                     + "\n lb.attributes::text as launchboxAttributes, lb.summary as launchboxSummary, lb.attributes->'video' as launchboxVideo, "
                     + "\n hltb.attributes::text as hltbAttributes, "
                     + "\n mg.attributes::text as mobygamesAttributes, "
-                    + "\n tgdb.attributes::text as thegamesdbAttributes ";                   
+                    + "\n tgdb.attributes::text as thegamesdbAttributes ";
         }
         sql += ""
                 + "\n FROM wikidata_entities we ";
@@ -123,7 +124,7 @@ public class JDBCQuery {
         sql += ""
                 + "\n WHERE " + whereForAttributes("we.attributes")
                 + "\n ORDER BY id";
-        
+
         if(forGame){
             System.out.println(sql);
         }

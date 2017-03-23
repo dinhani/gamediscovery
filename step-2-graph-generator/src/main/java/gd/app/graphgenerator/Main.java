@@ -19,15 +19,21 @@ import java.util.stream.Collectors;
 
 public class Main {
 
+    // =========================================================================
     // DATA
+    // =========================================================================
     private final Map<ImportTask, Collection<Node>> nodes = Maps.newHashMap();
 
-    // SERVICES    
+    // =========================================================================
+    // SERVICES
+    // =========================================================================
     private final CSV csv;
     private final Cache cache;
     private final UID uid;
 
+    // =========================================================================
     // TASKS
+    // =========================================================================
     private final Collection<ImportTask> importTasks;
 
     // =========================================================================
@@ -59,38 +65,41 @@ public class Main {
         generateRelationshipsCSV();
     }
 
+    // NODES
     private void generateNodesCSV() {
         // generate data
         System.out.println("==================================================");
         System.out.println("GETTING NODES TO CREATE");
         System.out.println("==================================================");
 
-        importTasks.parallelStream().forEach(importTask -> {
+        importTasks.parallelStream().forEach(task -> {
             // log start
             Stopwatch watch = Stopwatch.createStarted();
 
             // get nodes
-            Collection<Node> nodesToCreate = importTask.getNodesToCreate();
+            Collection<Node> nodesToCreate = task.getNodesToCreate();
 
             // generate uid and add to cache
             for (Node node : nodesToCreate) {
-                node.setGeneratedId(uid.generateUid(importTask.getTargetClass(), node.getId()));
-                cache.add(importTask.getTargetClass(), node);
+                node.setGeneratedId(uid.generateUid(task.getTargetClass(), node.getId()));
+                node.setType(task.getTargetClass());
+                cache.add(node);
             }
             // save csv
             try {
-                csv.createNodesFile(importTask.getTargetClass(), nodesToCreate);
+                csv.createNodesFile(task.getTargetClass(), nodesToCreate);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
             // store for next iteration
-            nodes.put(importTask, nodesToCreate);
+            nodes.put(task, nodesToCreate);
 
-            // log end            
-            System.out.println("Nodes: " + importTask.getClass() + " = " + watch.elapsed(TimeUnit.SECONDS));
+            // log end
+            System.out.println("Nodes: " + task.getClass() + " = " + watch.elapsed(TimeUnit.SECONDS));
         });
     }
 
+    // RELATIONSHIPS
     private void generateRelationshipsCSV() {
         // generate relatinships
         System.out.println("=======================================================");
@@ -123,7 +132,7 @@ public class Main {
                 ex.printStackTrace();
             }
 
-            // log end            
+            // log end
             System.out.println("Relationships: " + importTask.getClass() + " = " + watch.elapsed(TimeUnit.SECONDS));
         }
     }

@@ -19,24 +19,24 @@ public class ImportNumberOfPlayers extends ImportTask {
     @Override
     public Collection<Node> getNodesToCreate() {
         Set<Node> numberOfPlayers = Sets.newHashSet();
-        numberOfPlayers.add(new Node("1", "1 player"));
-        numberOfPlayers.add(new Node("2", "2 players"));
-        numberOfPlayers.add(new Node("3", "3 players"));
-        numberOfPlayers.add(new Node("4", "4 players"));
-        numberOfPlayers.add(new Node("5", "5 players"));
-        numberOfPlayers.add(new Node("6", "6 players"));
-        numberOfPlayers.add(new Node("7", "7 players"));
-        numberOfPlayers.add(new Node("8", "8 players"));
-        numberOfPlayers.add(new Node("9", "9 players"));
-        numberOfPlayers.add(new Node("10", "10 players"));
-        numberOfPlayers.add(new Node("11", "11 players"));
-        numberOfPlayers.add(new Node("12", "12 players"));
-        numberOfPlayers.add(new Node("16", "16 players"));
-        numberOfPlayers.add(new Node("24", "24 players"));
-        numberOfPlayers.add(new Node("30", "30 players"));
-        numberOfPlayers.add(new Node("32", "32 players"));
-        numberOfPlayers.add(new Node("64", "64 players"));
-        numberOfPlayers.add(new Node("128", "128 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "1", "1 player"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "2", "2 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "3", "3 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "4", "4 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "5", "5 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "6", "6 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "7", "7 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "8", "8 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "9", "9 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "10", "10 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "11", "11 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "12", "12 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "16", "16 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "24", "24 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "30", "30 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "32", "32 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "64", "64 players"));
+        numberOfPlayers.add(Node.withPredefinedIdAndName(getTargetClass(), "128", "128 players"));
 
         return numberOfPlayers;
     }

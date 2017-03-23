@@ -24,13 +24,15 @@ public class Cache {
     // =========================================================================
     // POPULATE
     // =========================================================================
-    public void add(Class<? extends ConceptEntry> type, Collection<Node> nodes) {
+    public void add(Collection<Node> nodes) {
         for (Node node : nodes) {
-            add(type, node);
+            add(node);
         }
     }
 
-    public void add(Class<? extends ConceptEntry> type, Node node) {
+    public void add(Node node) {
+        Class<? extends ConceptEntry> type = node.getType();
+        
         // id cache - main id
         if (!idCache.containsKey(type)) {
             idCache.put(type, Maps.newHashMap());

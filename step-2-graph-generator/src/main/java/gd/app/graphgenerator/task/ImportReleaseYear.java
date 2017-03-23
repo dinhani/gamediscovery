@@ -23,7 +23,7 @@ public class ImportReleaseYear extends ImportTask {
         // release years
         Set<Node> years = Sets.newHashSet();
         for (int year = 1970; year <= 2020; year++) {
-            years.add(new Node(year + "", year + ""));
+            years.add(Node.withPredefinedIdAndName(getTargetClass(), year + "", year + ""));
         }
 
         // predefined

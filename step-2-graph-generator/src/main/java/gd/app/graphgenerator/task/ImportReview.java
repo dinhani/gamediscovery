@@ -35,7 +35,7 @@ public class ImportReview extends ImportTask {
                     double score = NumberUtils.toDouble(intPart + "." + decimalPart);
 
                     if (score <= 10.0) {
-                        Node node = new Node(scoreId, scoreName);
+                        Node node = Node.withPredefinedIdAndName(getTargetClass(), scoreId, scoreName);
                         scores.add(node);
                     }
                 }

@@ -22,10 +22,15 @@ import org.apache.commons.lang3.text.WordUtils;
 
 public class Node implements Serializable {
 
+    // =========================================================================
     // SERVICES
+    // =========================================================================
     private static Json JSON = DIService.getBean(Json.class);
     private static UID UID = DIService.getBean(UID.class);
 
+    // =========================================================================
+    // DATA
+    // =========================================================================
     // PREDEFINED NODES DATA
     private ConceptEntry conceptEntry;
     private String[] keywords;
@@ -34,13 +39,13 @@ public class Node implements Serializable {
     private boolean shouldBoostRelevance = false;
 
     // BASIC DATA
-    private String generatedId = "";                              // the id that will be persisted in Neo4J    
+    private Class<? extends ConceptEntry> type;
+    private String generatedId = "";                              // the id that will be persisted in Neo4J
     private String id = "";                                       // the id generated from wikipedia link or generated from the name
-    private String idWikipedia = "";                              // the Wikipedia ID (it is in the URL)
     private List<String> alternativeIds = Collections.EMPTY_LIST; // alternative ids generated from the id
     private String image = "";                                    // the image filename (it is using the same value of idWikipedia, but without the case normalization)
     private String name = "";                                     // the name from wikidata
-    private final Set<String> aliases = Sets.newHashSet();        // name aliases    
+    private final Set<String> aliases = Sets.newHashSet();        // name aliases
 
     // DBPEDIA
     private Map<String, List<String>> dbpediaAttributes = Collections.EMPTY_MAP;
@@ -50,7 +55,7 @@ public class Node implements Serializable {
     private List<String> esrbCategories = Collections.EMPTY_LIST;
     private String esrbClassification;
 
-    // HLTB    
+    // HLTB
     private Map<String, Object> hltbAttributes = Collections.EMPTY_MAP;
 
     // IGDB
@@ -90,53 +95,8 @@ public class Node implements Serializable {
     private Map<String, List<String>> wikipediaCooperativeAttributes = Collections.EMPTY_MAP;
     private Map<String, Integer> wikipediaEnWordCount = Collections.EMPTY_MAP;
     private Map<String, Integer> wikipediaPtWordCount = Collections.EMPTY_MAP;
+    private String wikipediaId = "";
     private boolean wikipediaGoty;
-
-    // =========================================================================
-    // CONSTRUCTORS
-    // =========================================================================
-    // USED BY SPRING QUERY
-    public Node() {
-    }
-
-    // USED BY DOMAIN
-    public Node(String id, String name) {
-        setId(id);
-        setName(name);
-    }
-
-    // USED BY FACTORY METHOD
-    public Node(ConceptEntry conceptEntry, String[] keywords) {
-        String parsedId = StringUtils.split(conceptEntry.getUid(), "-", 2)[1];
-
-        // basic data
-        this.id = parsedId;
-        this.name = conceptEntry.getName();
-
-        // used for search
-        this.conceptEntry = conceptEntry;
-        this.keywords = keywords;
-    }
-
-    // =========================================================================
-    // OBJECT METHODS
-    // =========================================================================
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Node) {
-            return this.id.equals(((Node) obj).id);
-        }
-        if (obj instanceof String) {
-            return this.id.equals(obj);
-        }
-
-        return false;
-    }
 
     // =========================================================================
     // FACTORY
@@ -151,7 +111,7 @@ public class Node implements Serializable {
 
     public static Node withPredefinedIdAndName(Class<? extends ConceptEntry> type, String id, String name, String... searchTerms) {
 
-        // createFromName concept entry
+        // CONCEPT ENTRY CREATION
         ConceptEntry conceptEntry = null;
         // id
         if (StringUtils.isNotBlank(id) && StringUtils.isBlank(name)) {
@@ -167,12 +127,13 @@ public class Node implements Serializable {
         }
 
         // validate search terms
-        if (searchTerms.length == 0) {
+        if (searchTerms == null || searchTerms.length == 0) {
             searchTerms = new String[]{conceptEntry.getName().toLowerCase()};
         }
 
-        // createFromName node
-        Node node = new Node(conceptEntry, searchTerms);
+        // NODE CREATION
+        String parsedId = StringUtils.split(conceptEntry.getUid(), "-", 2)[1];
+        Node node = new Node(type, parsedId, conceptEntry.getName(), searchTerms, conceptEntry);
 
         return node;
     }
@@ -198,75 +159,23 @@ public class Node implements Serializable {
     }
 
     // =========================================================================
-    // PROCESSED GETTERS
+    // CONSTRUCTORS
     // =========================================================================
-    // BASIC INFO
-    public String getAlias() {
-        return StringUtils.join(aliases, ", ");
+    // USED BY SPRING QUERY
+    public Node() {
     }
 
-    public String getSummary() {
-        return launchboxSummary;
-    }
-
-    public String getVideo() {
-        return launchboxVideo;
-    }
-
-    // ATTRIBUTES
-    public Collection<String> getDBPediaAttributes(String... attributeKeys) {
-        return toAttributes(dbpediaAttributes, attributeKeys);
-    }
-
-    public Collection<String> getIgdbAttributes(String... attributeKeys) {
-        return toAttributes(igdbAttributes, attributeKeys);
-    }
-
-    public Collection<String> getMobygamesAttributes(String... attributeKeys) {
-        return toAttributes(mobygamesAttributes, attributeKeys);
-    }
-
-    public Collection<String> getWikidataAttributes(String... attributeKeys) {
-        return toAttributes(wikidataAttributes, attributeKeys);
-    }
-
-    public Collection<String> getWikipediaAttributes(String... attributeKeys) {
-        return toAttributes(wikipediaAttributes, attributeKeys);
-    }
-
-    public Collection<String> getWikipediaCooperativeAttributes(String... attributeKeys) {
-        return toAttributes(wikipediaCooperativeAttributes, attributeKeys);
-    }
-
-    //
-    public <T extends ConceptEntry> T getConceptEntry(Class<T> returnType) {
-        return returnType.cast(conceptEntry);
+    // USED BY FACTORY METHOD
+    public Node(Class<? extends ConceptEntry> type, String id, String name, String[] keywords, ConceptEntry conceptEntry) {
+        this.type = type;
+        this.id = id;
+        this.name = name;
+        this.keywords = keywords;
+        this.conceptEntry = conceptEntry;
     }
 
     // =========================================================================
-    // CHECKERS
-    // =========================================================================
-    public double relevanceForWords(String... words) {
-        int wordsFound = 0;
-        for (String word : words) {
-            wordsFound += MapUtils.getIntValue(wikipediaEnWordCount, word, 0);
-            wordsFound += MapUtils.getIntValue(giantbombWordCount, word, 0);
-        }
-
-        if (wordsFound >= minOcurrencesForSearchTerm) {
-            double relevanceModifier = RelationshipRelevanceBoost.NORMAL;
-            if (shouldBoostRelevance) {
-                relevanceModifier = RelationshipRelevanceBoost.HIGH;
-            }
-            relevanceModifier = relevanceModifier + ((wordsFound - minOcurrencesForSearchTerm) * RelationshipRelevanceBoost.INCREMENT);
-            return relevanceModifier;
-        } else {
-            return 0;
-        }
-    }
-
-    // =========================================================================
-    // PROCESSED ADDERS
+    // ADDERS
     // =========================================================================
     public Node addAlternativeId(String id) {
         if (alternativeIds == Collections.EMPTY_LIST) {
@@ -295,10 +204,112 @@ public class Node implements Serializable {
     }
 
     // =========================================================================
-    // PROCESSED SETTERS
+    // OBJECT METHODS
     // =========================================================================
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Node) {
+            return this.id.equals(((Node) obj).id);
+        }
+        if (obj instanceof String) {
+            return this.id.equals(obj);
+        }
+
+        return false;
+    }
+
+    // =========================================================================
+    // WORD CHECKS
+    // =========================================================================
+    public double relevanceForWords(String... words) {
+        int wordsFound = 0;
+        for (String word : words) {
+            wordsFound += MapUtils.getIntValue(wikipediaEnWordCount, word, 0);
+            wordsFound += MapUtils.getIntValue(giantbombWordCount, word, 0);
+        }
+
+        if (wordsFound >= minOcurrencesForSearchTerm) {
+            double relevanceModifier = RelationshipRelevanceBoost.NORMAL;
+            if (shouldBoostRelevance) {
+                relevanceModifier = RelationshipRelevanceBoost.HIGH;
+            }
+            relevanceModifier = relevanceModifier + ((wordsFound - minOcurrencesForSearchTerm) * RelationshipRelevanceBoost.INCREMENT);
+            return relevanceModifier;
+        } else {
+            return 0;
+        }
+    }
+
+    // =========================================================================
+    // CHECKS
+    // =========================================================================
+    public boolean shouldCheckName() {
+        return shouldCheckName;
+    }
+
+    public boolean shouldBoostRelevance() {
+        return shouldBoostRelevance;
+    }
+
+    // =========================================================================
+    // GETTERS AND SETTERS - BASIC INFO
+    // =========================================================================
+    public Class<? extends ConceptEntry> getType() {
+        return type;
+    }
+
+    public void setType(Class<? extends ConceptEntry> type) {
+        this.type = type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getWikipediaId() {
+        return wikipediaId;
+    }
+
+    public void setWikipediaId(String wikipediaId) {
+        this.wikipediaId = wikipediaId;
+    }
+
+    public String getWikidataId() {
+        return wikidataId;
+    }
+
+    public Node setWikidataId(String wikidataId) {
+        this.wikidataId = wikidataId;
+        return this;
+    }
+
+    public String getGeneratedId() {
+        return generatedId;
+    }
+
+    public void setGeneratedId(String generatedId) {
+        this.generatedId = generatedId;
+    }
+
+    public List<String> getAlternativeIds() {
+        return alternativeIds;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
-        // generate relevanceForWords name if name is equals the id or if the name is in lowercase
+        // if the ID is the name, remove special cases
         if (name.equals(id) || name.equals(name.toLowerCase())) {
             name = name.replace("video_games", "");
             name = name.replace("_about_", "");
@@ -311,14 +322,68 @@ public class Node implements Serializable {
         this.name = trimmedName;
     }
 
-    public void setIdWikipedia(String idWikipedia) {
-        this.idWikipedia = idWikipedia;
+    public String getAlias() {
+        return StringUtils.join(aliases, ", ");
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public void setImage(String image) {
         this.image = image.toLowerCase();
     }
 
+    public String getVideo() {
+        return launchboxVideo;
+    }
+
+    public String getSummary() {
+        return launchboxSummary;
+    }
+
+    public String[] getKeywords() {
+        return keywords;
+    }
+
+    public ConceptEntry getConceptEntry() {
+        return conceptEntry;
+    }
+
+    public <T extends ConceptEntry> T getConceptEntry(Class<T> returnType) {
+        return returnType.cast(conceptEntry);
+    }
+
+    // =========================================================================
+    // GETTERS - ATTRIBUTES
+    // =========================================================================
+    public Collection<String> getDBPediaAttributes(String... attributeKeys) {
+        return toAttributes(dbpediaAttributes, attributeKeys);
+    }
+
+    public Collection<String> getIgdbAttributes(String... attributeKeys) {
+        return toAttributes(igdbAttributes, attributeKeys);
+    }
+
+    public Collection<String> getMobygamesAttributes(String... attributeKeys) {
+        return toAttributes(mobygamesAttributes, attributeKeys);
+    }
+
+    public Collection<String> getWikidataAttributes(String... attributeKeys) {
+        return toAttributes(wikidataAttributes, attributeKeys);
+    }
+
+    public Collection<String> getWikipediaAttributes(String... attributeKeys) {
+        return toAttributes(wikipediaAttributes, attributeKeys);
+    }
+
+    public Collection<String> getWikipediaCooperativeAttributes(String... attributeKeys) {
+        return toAttributes(wikipediaCooperativeAttributes, attributeKeys);
+    }
+
+    // =========================================================================
+    // SETTERS - ATTRIBUTES
+    // =========================================================================
     public void setDbpediaAttributes(String attributes) {
         this.dbpediaAttributes = parseJsonMap(attributes);
     }
@@ -391,97 +456,8 @@ public class Node implements Serializable {
     }
 
     // =========================================================================
-    // HELPERS
+    // GETTERS - OTHERS
     // =========================================================================
-    private List<String> parseArray(String input) {
-        if (input != null) {
-            input = input.substring(1, input.length() - 1);
-            input = input.replaceAll("\"", "");
-            return (Splitter.on(',').trimResults().omitEmptyStrings().splitToList(input));
-        } else {
-            return Collections.EMPTY_LIST;
-        }
-    }
-
-    private List parseJsonList(String input) {
-        if (input != null) {
-            return JSON.toClass(input, List.class);
-        } else {
-            return Collections.EMPTY_LIST;
-        }
-    }
-
-    private Map parseJsonMap(String input) {
-        if (input != null) {
-            return JSON.toClass(input, Map.class);
-        } else {
-            return Collections.EMPTY_MAP;
-        }
-    }
-
-    private Set<String> toAttributes(Map<String, List<String>> attributes, String... attributeKeys) {
-        Set<String> attributesToReturn = Sets.newHashSet();
-
-        // iterate keys
-        for (String attributeKey : attributeKeys) {
-            if (attributes.containsKey(attributeKey)) {
-                attributesToReturn.addAll(attributes.get(attributeKey));
-            }
-        }
-
-        return attributesToReturn;
-    }
-
-    // =========================================================================
-    // CHECKS
-    // =========================================================================
-    public boolean shouldCheckName() {
-        return shouldCheckName;
-    }
-
-    public boolean shouldBoostRelevance() {
-        return shouldBoostRelevance;
-    }
-
-    // =========================================================================
-    // GETTERS
-    // =========================================================================
-    public ConceptEntry getConceptEntry() {
-        return conceptEntry;
-    }
-
-    public String[] getKeywords() {
-        return keywords;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public List<String> getAlternativeIds() {
-        return alternativeIds;
-    }
-
-    public String getGeneratedId() {
-        return generatedId;
-    }
-
-    public String getWikidataId() {
-        return wikidataId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getIdWikipedia() {
-        return idWikipedia;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
     public Map<String, List<String>> getDbpediaAttributes() {
         return dbpediaAttributes;
     }
@@ -556,16 +532,8 @@ public class Node implements Serializable {
     }
 
     // =========================================================================
-    // SETTERS
+    // SETTERS - OTHERS
     // =========================================================================
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setGeneratedId(String generatedId) {
-        this.generatedId = generatedId;
-    }
-
     public void setEsrbClassification(String esrbClassification) {
         this.esrbClassification = esrbClassification;
     }
@@ -586,13 +554,49 @@ public class Node implements Serializable {
         this.ignScore = ignScore;
     }
 
-    public Node setWikidataId(String wikidataId) {
-        this.wikidataId = wikidataId;
-        return this;
-    }
-
     public void setWikipediaGoty(boolean wikipediaGoty) {
         this.wikipediaGoty = wikipediaGoty;
     }
 
+    // =========================================================================
+    // HELPERS
+    // =========================================================================
+    private List<String> parseArray(String input) {
+        if (input != null) {
+            input = input.substring(1, input.length() - 1);
+            input = input.replaceAll("\"", "");
+            return (Splitter.on(',').trimResults().omitEmptyStrings().splitToList(input));
+        } else {
+            return Collections.EMPTY_LIST;
+        }
+    }
+
+    private List parseJsonList(String input) {
+        if (input != null) {
+            return JSON.toClass(input, List.class);
+        } else {
+            return Collections.EMPTY_LIST;
+        }
+    }
+
+    private Map parseJsonMap(String input) {
+        if (input != null) {
+            return JSON.toClass(input, Map.class);
+        } else {
+            return Collections.EMPTY_MAP;
+        }
+    }
+
+    private Set<String> toAttributes(Map<String, List<String>> attributes, String... attributeKeys) {
+        Set<String> attributesToReturn = Sets.newHashSet();
+
+        // iterate keys
+        for (String attributeKey : attributeKeys) {
+            if (attributes.containsKey(attributeKey)) {
+                attributesToReturn.addAll(attributes.get(attributeKey));
+            }
+        }
+
+        return attributesToReturn;
+    }
 }
