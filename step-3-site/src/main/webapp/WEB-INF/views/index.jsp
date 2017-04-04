@@ -1,1 +1,85 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE HTML><html lang="en" ng-app="app">    <head>        <!-- BASE FOR HTML -->        <base href="/"/>        <!-- CSS -->                        <link rel="stylesheet" type="text/css" href="/app/${production ? 'assets/dist' : 'wro4j'}/gamediscovery.css?v=${version}"/>                <!-- WEBMASTERS TOOLS -->        <meta name="google-site-verification" content="6Gwk-hvH0GdoYZI4N4tzuG_MO1N3I1MF6leSuCsKzPU" />        <meta name="msvalidate.01" content="8FEF62F2E2A31EE1DF49745A1D041320" />        <!-- RENDERING -->        <link rel="icon" href="/favicon.ico" />        <meta charset="UTF-8">        <meta name="viewport" content="width=device-width, initial-scale=1"/>        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>        <!-- DESCRIPTION -->                <meta name="description" content="{{$root.data.description}}"/>        <meta name="keywords" content="Video games recommendations, Video games search engine, Video games database"/>        <meta name="application-name" content="Game Discovery"/>        <!-- OPEN GRAPH -->        <meta name="og:title" content="{{$root.data.title}}"/>        <meta name="og:description" content="{{$root.data.description}}"/>        <!-- TITLE -->        <title ng-bind="$root.data.title">Game Discovery | The most advanced game search engine</title>        <!-- METADATA (SITE) -->        <script type="application/ld+json">            {            "@context" : "http://schema.org",            "@type" : "WebSite",            "name" : "Game Discovery",            "url" : "http://www.gamediscovery.net/",            "sameAs" : [            "http://www.facebook.com/gamediscovery.net"            ]            }        </script>    </head>    <body ng-controller="RootController">        <!-- HEADER -->        <div id="app-header" class="shadowed" >            <div class="ui middle aligned container grid">                <!-- HEADER -->                <div id="app-header-header" class="twelve wide computer sixteen wide mobile column only">                                        <a class="ui header clickable" ng-click="changeToMain()">                                                <div class="content">                            <span class="massive header">Game Discovery</span>                            <div class="medium sub header" translate>The most advanced game search engine</div>                        </div>                    </a>                </div>                <!-- MENU -->                <div id="app-header-menu" class="four wide computer sixteen wide mobile right aligned column desktop-only">                    <!-- LANGUAGE -->                    <div class="ui dropdown item small text"                          analytics-on="click" analytics-category="Menu" analytics-event="View language menu" analytics-label="">                        <i class="world icon"></i>                           <div class="text" ng-bind="$root.data.languages[language()]">English</div>                        <i class="dropdown icon"></i>                        <div class="menu">                                                        <div ng-click="language('en')" class="item" analytics-on="click" analytics-category="Menu" analytics-event="Select English language" analytics-label="English">English</div>                                                        <div ng-click="language('es')" class="item" analytics-on="click" analytics-category="Menu" analytics-event="Select Español language" analytics-label="Español">Español</div>                                                        <div ng-click="language('fr')" class="item" analytics-on="click" analytics-category="Menu" analytics-event="Select Français language" analytics-label="Español">Français</div>                                                                                    <div ng-click="language('it')" class="item" analytics-on="click" analytics-category="Menu" analytics-event="Select Italiano language" analytics-label="Español">Italiano</div>                                                                                    <div ng-click="language('pt')" class="item" analytics-on="click" analytics-category="Menu" analytics-event="Select Português language" analytics-label="Português">Português</div>                        </div>                    </div>                </div>            </div>        </div>        <!-- VIEW -->        <div id="app-view" style="min-height: 80%;">            <%@ include file="search.jsp" %>         </div>        <!-- =============================================================== -->        <!-- CSS / JS -->        <!-- =============================================================== -->                                <!-- ANALYTICS -->        <c:if test="${production}" >            <script>                        (function (i, s, o, g, r, a, m) {                            i['GoogleAnalyticsObject'] = r;                            i[r] = i[r] || function () {                                (i[r].q = i[r].q || []).push(arguments)                            }, i[r].l = 1 * new Date();                            a = s.createElement(o),                                    m = s.getElementsByTagName(o)[0];                            a.async = 1;                            a.src = g;                            m.parentNode.insertBefore(a, m)                        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');                        ga('create', 'UA-73748400-1', 'auto');                        //                                ga('send', 'pageview');            </script>            <script>                        (function (h, o, t, j, a, r) {                            h.hj = h.hj || function () {                                (h.hj.q = h.hj.q || []).push(arguments)                            };                            h._hjSettings = {hjid: 185356, hjsv: 5};                            a = o.getElementsByTagName('head')[0];                            r = o.createElement('script');                            r.async = 1;                            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;                            a.appendChild(r);                        })(window, document, '//static.hotjar.com/c/hotjar-', '.js?sv=');            </script>        </c:if>        <!-- APPLICATION -->        <script type="text/javascript" src="/app/${production ? 'assets/dist' : 'wro4j'}/gamediscovery.js?v=${version}" async></script>     </body></html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+        <!DOCTYPE HTML>
+        <html lang="en" ng-app="app">
+
+        <head>
+            <!-- BASE FOR HTML -->
+            <base href="/" />
+
+            <!-- CSS -->
+            <link rel="stylesheet" type="text/css" href="/app/${production ? 'assets/dist' : 'wro4j'}/gamediscovery.css?v=${version}" />
+
+            <!-- WEBMASTERS TOOLS -->
+            <meta name="google-site-verification" content="6Gwk-hvH0GdoYZI4N4tzuG_MO1N3I1MF6leSuCsKzPU" />
+            <meta name="msvalidate.01" content="8FEF62F2E2A31EE1DF49745A1D041320" />
+
+            <!-- RENDERING -->
+            <link rel="icon" href="/favicon.ico" />
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+            <!-- DESCRIPTION -->
+            <meta name="description" content="Check out new games with the same characteristics of your favorite games" />
+            <meta name="keywords" content="Video games recommendations, Video games search engine, Video games database" />
+            <meta name="application-name" content="Game Discovery" />
+
+            <!-- OPEN GRAPH -->
+            <meta name="og:title" content="Game Discovery | The most advanced game search engine" />
+            <meta name="og:description" content="Check out new games with the same characteristics of your favorite games" />
+
+            <!-- TITLE -->
+            <title translate>Game Discovery | The most advanced game search engine</title>
+
+            <!-- METADATA (SITE) -->
+            <script type="application/ld+json">
+                {
+            "@context" : "http://schema.org",
+            "@type" : "WebSite",
+            "name" : "Game Discovery",
+            "url" : "http://www.gamediscovery.net/",
+            "sameAs" : [
+            "http://www.facebook.com/gamediscovery.net"
+            ]
+            }
+            </script>
+        </head>
+
+        <body ng-controller="AppController">
+            <!-- HEADER -->
+            <div id="app-header" class="shadowed">
+                <div class="ui middle aligned container grid">
+
+                    <!-- HEADER -->
+                    <div class="twelve wide computer sixteen wide mobile column only">
+                        <a class="ui header clickable" ng-click="changeToMain()">
+                            <div class="content">
+                                <span class="massive header">Game Discovery</span>
+                                <div class="medium sub header" translate>The most advanced game search engine</div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- LANGUAGE -->
+                    <div class="four wide computer sixteen wide mobile right aligned column desktop-only">
+                        <language-selector></language-selector>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENT -->
+            <div id="app-content" class="ui fluid container" style="padding:0 2rem">
+                <search filters="data.filters" games="data.games" games-total-results="data.gamesTotalResults" searching="data.isSearchingGames"></search>
+                <br/>
+                <search-results games="data.games" games-total-results="data.gamesTotalResults" searching="data.isSearchingGames"></search-results>
+            </div>
+
+            <!-- =============================================================== -->
+            <!-- CSS / JS -->
+            <!-- =============================================================== -->
+            <script type="text/javascript" src="/app/${production ? 'assets/dist' : 'wro4j'}/gamediscovery.js?v=${version}" async></script>
+        </body>
+
+        </html>

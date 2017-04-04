@@ -1,10 +1,15 @@
 app.controller('RootController', function ($scope, $rootScope, $window, $location, $translate,
-        guiService, urlService) {
+    guiService, urlService) {
 
     // =========================================================================
     // DATA
     // =========================================================================
-    $rootScope.data = {};
+    $rootScope.data = {
+        filters: [],
+        games: [],
+        gamesTotalResults: 0,
+        isSearchingGames: false
+    };
 
     // window
     $rootScope.data.window = {};
@@ -15,13 +20,11 @@ app.controller('RootController', function ($scope, $rootScope, $window, $locatio
     $rootScope.data.header = "Game Discovery";
     $rootScope.data.description = "Check out new games with the same characteristics of your favorite games";
 
-    // languages
-    $rootScope.data.languages = {'en': 'English', 'es': 'Español', 'fr':'Français', 'it':'Italiano', 'pt': 'Português'};
-
     // =========================================================================
     // INITIALIZATION
     // =========================================================================
     guiService.dropdown();
+    guiService.accordion();
 
     // =========================================================================
     // WATCHERS
@@ -31,14 +34,8 @@ app.controller('RootController', function ($scope, $rootScope, $window, $locatio
     }, function (value) {
         $rootScope.height = value;
         $rootScope.data.window.height = value;
-    }); 
+    });
 
-    // =========================================================================
-    // ELEMENT HEIGHT
-    // =========================================================================
-    $scope.adjustHeight = function (elementToChangeHeigthSelector, diff) {
-        return guiService.heightToFooter(elementToChangeHeigthSelector, diff);
-    };
 
     // =========================================================================
     // PAGE CHANGES
@@ -57,35 +54,11 @@ app.controller('RootController', function ($scope, $rootScope, $window, $locatio
         $scope.search();
     };
 
-    $scope.changeToContribute = function () {
-        // change to contribute
-        $location.path(urlService.contribute());
-    };
-
     // =========================================================================
     // AVOID UNNECESSARY RELOAD
     // =========================================================================
     // reload on back button
     $window.onpopstate = function () {
         $scope.$broadcast('onpopstate');
-    };
-
-    // =========================================================================
-    // LANGUAGE
-    // =========================================================================
-    $rootScope.language = function (language) {
-        // getter
-        if (language === undefined) {
-            return $translate.use();
-        }
-
-        // setter
-        $translate.use(language)
-                // update GUI if necessary
-                .then(function () {
-                    if ($rootScope.updateGUI !== undefined) {
-                        $rootScope.updateGUI();
-                    }
-                });
     };
 });

@@ -29,7 +29,7 @@ public class AppController {
     private PreRender preRender;
 
     @Autowired
-    private UID uid;    
+    private UID uid;
 
     // =========================================================================
     // PAGES (RECOMMENDATIONS)
@@ -55,7 +55,7 @@ public class AppController {
     @RequestMapping(value = {"/recommendations/games-like-{gameUid}"}, method = RequestMethod.GET)
     public Object legacyGamesLikeRecommendations(@PathVariable(value = "gameUid") String gameUid) {
 
-        // generate new url        
+        // generate new url
         String urlToRedirect = "/recommendations/" + gameUid;
 
         // redirect
@@ -76,7 +76,7 @@ public class AppController {
         Map<String, Object> model = basicModel();
 
         // render
-        return new ModelAndView("recommendations/index", model);
+        return new ModelAndView("index", model);
     }
 
     // =========================================================================

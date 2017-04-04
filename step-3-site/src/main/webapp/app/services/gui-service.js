@@ -22,7 +22,7 @@ app.service('guiService', function ($rootScope, $timeout) {
     // =========================================================================
     this.cards = function () {
         $timeout(function () {
-            jQuery('.concept-entry-image').dimmer({on: 'hover'});
+            jQuery('.concept-entry-image').dimmer({ on: 'hover' });
         }, 100);
     };
 
@@ -80,11 +80,12 @@ app.service('guiService', function ($rootScope, $timeout) {
         }
         //additionalOptions.transition = 'fly up';
         additionalOptions.duration = 300;
+        additionalOptions.observeChanges = true;
 
         // show modal
         jQuery(modalSelector)
-                .modal(additionalOptions)
-                .modal('show');
+            .modal(additionalOptions)
+            .modal('show');
     };
 
     this.hideModal = function (modalSelector) {
@@ -151,7 +152,7 @@ app.service('guiService', function ($rootScope, $timeout) {
         searchInput.search.settings.fields.title = "displayName";
         //searchInput.search.settings.fields.image = "imageFullPath";
         searchInput.search.settings.fields.description = "typeName";
-        
+
 
         // behaviors
         searchInput.search.settings.selectFirstResult = true;
@@ -164,7 +165,7 @@ app.service('guiService', function ($rootScope, $timeout) {
 
         // enrich datasource
         _.each(datasource, function (element) {
-            // type                        
+            // type
             element.typeName = element.type.name;
 
             // alias
@@ -182,7 +183,7 @@ app.service('guiService', function ($rootScope, $timeout) {
         });
 
         // do search
-        var resultsHTML = searchInput.search("generate results", {results: datasource});
+        var resultsHTML = searchInput.search("generate results", { results: datasource });
         searchInput.search("add results", resultsHTML);
         searchInput.search("inject id", datasource);
     };
@@ -207,14 +208,14 @@ app.service('guiService', function ($rootScope, $timeout) {
     this.scrollTop = function (elementToScrollSelector) {
         if (_.isUndefined(elementToScrollSelector)) {
             elementToScrollSelector = 'body';
-        };        
-        jQuery(elementToScrollSelector).animate({scrollTop: 0}, 250);
+        };
+        jQuery(elementToScrollSelector).animate({ scrollTop: 0 }, 250);
     };
 
     this.heightToFooter = function (elementToChangeHeigthSelector, marginToSubtract) {
         var elementToChangeHeight = document.getElementById(elementToChangeHeigthSelector);
 
-        // calculate height (I copied from Sprint code, I don't know exactly why it works, but it does)        
+        // calculate height (I copied from Sprint code, I don't know exactly why it works, but it does)
         var elementTopPosition = jQuery(elementToChangeHeight).position().top;
         var newHeight = $rootScope.data.window.height - elementTopPosition - 10;
 
@@ -222,7 +223,7 @@ app.service('guiService', function ($rootScope, $timeout) {
             newHeight = newHeight - marginToSubtract;
         }
 
-        // set height        
+        // set height
         return newHeight + "px";
     };
 });

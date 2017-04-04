@@ -2,121 +2,58 @@
 /* PAGE LAYOUT (GENERAL) */
 /* ===========================================================================*/
 html,body {
-    min-height: 100%;
-    padding:0;
-    margin:0;        
-    background: #ecf0f1; 
+    background: #ecf0f1;
 }
 a:hover{
     text-decoration: underline;
 }
-*:not(.icon){
-/*    font-family: "Cabin" !important;*/
-}
+
 /* header */
 #app-header{
-    background: #2980B9 !important;        
+    background: #2980B9 !important;
     color: white;
-    margin-bottom: 2rem;
 }
 #app-header .column{
     padding-top: 2.5rem;
-    padding-bottom: 1rem;    
+    padding-bottom: 1rem;
 }
 #app-header .header{
     color: white;
 }
 
 /* ===========================================================================*/
-/* PAGE LAYOUT (SPECIFIC) */
+/* COMPONENTS */
 /* ===========================================================================*/
-#search-main-search-wrapper{
-    position: fixed;
-    top: 30%;
-    width: 100% !important;
-}
-#search-main-search-input{
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-/* SEARCH MAIN SEARCH EXAMPLES */
-#search-main-search-examples .item{
-    display: inline-block;
-    margin-top: 1rem;
-    margin-right: 1rem;
-}
-
-/* SEARCH FILTERS */
-#search-filters-wrapper{
-    position: relative;
-    top: 1px;
-}
-/* column */
-#search-filters-wrapper .column{        
-    height: 5.5rem;
-    border-bottom: 1px solid #D4D4D5;
-}
-/* content */
-#search-filters-wrapper .column:not(:last-child) > *:first-child{       
-    position: relative;
-    top: 1rem;    
-}
-/* text */
-.search-filter-text{
-    display: inline-block;
-    white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow: ellipsis;
-    max-width: 90%;   
-    height: 1.6rem; /* avoid cutting letters */
-}
-/* delete icon */
-.search-filter-icon{
-    float: right;        
-    font-size: 1.45rem;
-}
-
-/* SEARCH RESULTS */
-#search-results-games{
-    margin-bottom: 0;
-}
-
-/* SEARCH DETAILS (GAME MODAL) */
-/* CONCEPT ENTRY CARD */
-a[gd-concept-card]{    
+/* GAME CARD */
+game-card a{
     text-decoration: none !important;
     color: inherit;
 }
-
-.concept-entry-image{
+game-card a:hover{
+    color: inherit;
+}
+.game-card-image{
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     background: #222;
+    height:300px;
 }
-.concept-entry-image img{
-    height: 100%; 
-    width: 100%; 
+.game-card-image img{
+    height: 100%;
+    width: 100%;
     object-fit: contain;
 }
-.concept-entry-header{
-    height: 1.5rem;  
-    white-space: nowrap; 
-    overflow: hidden; 
+.game-card-header{
+    height: 1.5rem;
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
 /* GAME */
-#game-accordion-overview-content .top.attached.segment{
-    padding: 0 !important;    
-}
-#game-accordion-overview-content table{
-    position: relative;
-    top: -1px;    
-}
-#game-cover img{        
+#game-cover img{
     height: 100%;
     width: 100%;
     object-fit: contain;
@@ -126,10 +63,22 @@ a[gd-concept-card]{
     z-index: 100;
     transform: scale(2,2);
 }
+#game-images img{
+    display: inline-block;
+    height: 80px;
+    width: 16%;
+    margin-right: 0.6%;
+    margin-bottom: 0.6%;
+}
 
 /* ===========================================================================*/
-/* FONTS */
+/* HEADERS */
 /* ===========================================================================*/
+.ui.attached.header{
+    background: white;
+    color: #2980B9;
+    text-transform: uppercase;
+}
 .massive.header, .massive.text, .massive.icon{
     font-size: 2.5rem !important;
 }
@@ -151,38 +100,20 @@ a[gd-concept-card]{
 /* ===========================================================================*/
 .accordion{
     border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;    
+    border-top-right-radius: 0 !important;
 }
-.accordion .title{         
+.accordion .title{
     background: #2980B9 !important;
     color: white !important;
     text-transform: uppercase;
 }
-.accordion .content{    
+.accordion .content{
     padding: 1rem !important;
 }
 
-/* ===========================================================================*/
-/* CARD */
-/* ===========================================================================*/
-.card:hover{        
-    box-shadow: 0px 5px 10px 0px #bcbdbd, 0px 0px 0px 1px #d4d4d5 !important;
-    transform: scale(1.025, 1.025);
-    transition: all linear 0.1s;
-}
-.card .extra.content{
-    font-weight: bold;
-}
-
-/* ===========================================================================*/
-/* FORM */
-/* ===========================================================================*/
-/* Button follows the site scheme color */
-.ui.attached.header{
-    background: white;
-    color: #2980B9;
-    text-transform: uppercase;
-}
+/* ========================================================================== */
+/* BUTTON */
+/* ========================================================================== */
 .ui.button{
     background: #2980B9;
     color:white;
@@ -194,14 +125,13 @@ a[gd-concept-card]{
     color: white;
 }
 
-/* Text input fills the parent element */
-.ui.input, .ui.search input{
-    width: 100%;
-}
-/* Scrolls have limited height */
-.menu.transition{
-    max-height: 600px;
-    overflow-x: hidden;    
+/* ===========================================================================*/
+/* CARD */
+/* ===========================================================================*/
+.card:hover{
+    box-shadow: 0px 5px 10px 0px #bcbdbd, 0px 0px 0px 1px #d4d4d5 !important;
+    transform: scale(1.025, 1.025);
+    transition: all linear 0.1s;
 }
 
 /* ===========================================================================*/
@@ -209,35 +139,6 @@ a[gd-concept-card]{
 /* ===========================================================================*/
 .ui.dimmer.modals{
     background: rgba(0, 0, 0, 0.95);
-}
-
-/* ===========================================================================*/
-/* SEARCH */
-/* ===========================================================================*/
-/* Add scroll to search results */
-.search input{
-    border-radius: 0.28571429rem !important;
-}
-.search .results{
-    max-height: 600px;    
-    overflow-x: hidden;
-    overflow-y: scroll;
-    font-size: 1rem;
-}
-/* Smaller font-size for aliases */
-.search .results .alias{
-    font-weight: normal;
-    font-size: 0.75rem;
-}
-
-/* ===========================================================================*/
-/* SECTION / SEGMENT */
-/* ===========================================================================*/
-* .ui.vertical.segment:first-child{
-    padding-top: 0;    
-}
-* .ui.vertical.segment:last-child{
-    padding-bottom: 0;    
 }
 
 /* ===========================================================================*/
