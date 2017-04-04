@@ -133,7 +133,7 @@ app.component("search", {
 
             <!-- INPUT -->
             <div class="ui bottom attached segment">
-                <tags-input id="search-input" ng-model="$ctrl.filters" key-property="uid" display-property="name" placeholder="Add Filter"
+                <tags-input id="search-input" ng-model="$ctrl.filters" key-property="uid" display-property="name" placeholder="{{'Add filter' | translate}}"
                     add-from-autocomplete-only="true" replace-spaces-with-dashes="false"
                     on-tag-added="filtersChanged()" on-tag-removed="filtersChanged()">
                     <auto-complete source="searchFilters($query)" debounce-delay="200" min-length="1" template="tag-template"></auto-complete>

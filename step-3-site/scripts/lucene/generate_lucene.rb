@@ -114,7 +114,7 @@ query = "
     OPTIONAL MATCH (n)<-[:PUBLISHES]-(p:Platform)
     RETURN n.uid as uid, n.name as name, n.alias as alias, n.image as image, labels(n)[1] as label, labels(n)[0] as label_2, COUNT(g) as games, COLLECT(p.name) as platforms"
 
-neo4j = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic( "neo4j", "123" )).session()
+neo4j = GraphDatabase.driver(ENV['GD_NEO4J_CONN_BOLT'], AuthTokens.basic(ENV['GD_NEO4J_CONN_USER'], ENV['GD_NEO4J_CONN_PASSWORD'])).session()
 results = neo4j.run(query)
 
 puts "3) Recreating index"

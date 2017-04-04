@@ -19,7 +19,7 @@ SET GD_DATA_NEO4J=F:/gamediscovery/neo4j
 
 rem Database connections
 SET GD_NEO4J_CONN_REST=http://localhost:7474/db/data/
-SET GD_NEO4J_CONN_BOLT=bolt://localhost
+SET GD_NEO4J_CONN_BOLT=bolt://localhost:7687/
 SET GD_NEO4J_CONN_USER=neo4j
 SET GD_NEO4J_CONN_PASSWORD=123
 
