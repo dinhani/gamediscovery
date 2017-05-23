@@ -11,58 +11,57 @@
     <!-- APPENDERS -->
     <!-- =================================================================== -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <filter class="gd.infrastructure.log.provider.logback.GameDiscoveryLogFilter" />        
-        
+        <filter class="gd.infrastructure.log.provider.logback.GameDiscoveryLogFilter" />
+
         <encoder>
-            <withJansi>true</withJansi>
             <pattern>${pattern}</pattern>
         </encoder>
     </appender>
 
     <appender name="GD_FILE" class="ch.qos.logback.core.FileAppender">
-        <filter class="gd.infrastructure.log.provider.logback.GameDiscoveryLogFilter" />        
-        
+        <filter class="gd.infrastructure.log.provider.logback.GameDiscoveryLogFilter" />
+
         <file>log/game-discovery.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${pattern}</pattern>
         </encoder>
     </appender>
-    
+
     <appender name="REQUEST_FILE" class="ch.qos.logback.core.FileAppender">
         <file>log/request.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${requestPattern}</pattern>
         </encoder>
     </appender>
-    
+
     <appender name="PROFILE_FILE" class="ch.qos.logback.core.FileAppender">
         <file>log/profile.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${requestPattern}</pattern>
         </encoder>
     </appender>
-    
+
     <appender name="SPRING_FILE" class="ch.qos.logback.core.FileAppender">
         <file>log/spring.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${pattern}</pattern>
         </encoder>
     </appender>
-    
+
     <appender name="NEO4J_FILE" class="ch.qos.logback.core.FileAppender">
         <file>log/neo4j.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${pattern}</pattern>
         </encoder>
     </appender>
-    
+
     <appender name="WRO_FILE" class="ch.qos.logback.core.FileAppender">
         <file>log/wro4j.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${pattern}</pattern>
         </encoder>
     </appender>
-    
+
     <appender name="JDBC_FILE" class="ch.qos.logback.core.FileAppender">
         <file>log/jdbc.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -78,28 +77,28 @@
         <appender-ref ref="STDOUT" />
         <appender-ref ref="GD_FILE" />
     </logger>
-    
-    <logger name="gd.app.web.server.filter.GameDiscoveryFilter" level="INFO">        
+
+    <logger name="gd.app.web.server.filter.GameDiscoveryFilter" level="INFO">
         <appender-ref ref="REQUEST_FILE" />
     </logger>
-    
-    <logger name="gd.domain.shared.DomainAspect" level="INFO">        
+
+    <logger name="gd.domain.shared.DomainAspect" level="INFO">
         <appender-ref ref="PROFILE_FILE" />
     </logger>
-    
+
     <!-- LIBS -->
-    <logger name="org.springframework" level="INFO">        
+    <logger name="org.springframework" level="INFO">
         <appender-ref ref="SPRING_FILE" />
     </logger>
-    
+
     <logger name="org.neo4j.ogm.drivers" level="INFO">
         <appender-ref ref="NEO4J_FILE" />
     </logger>
 
-    <logger name="ro.isdc.wro" level="TRACE">        
+    <logger name="ro.isdc.wro" level="TRACE">
         <appender-ref ref="WRO_FILE" />
     </logger>
-      
+
     <logger name="org.springframework.jdbc.core.JdbcTemplate" level="TRACE">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="JDBC_FILE" />

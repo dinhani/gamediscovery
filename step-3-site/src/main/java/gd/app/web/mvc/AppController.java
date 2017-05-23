@@ -39,29 +39,6 @@ public class AppController {
         return "redirect:/recommendations";
     }
 
-    @RequestMapping(value = {"/search", "/search/**"}, method = RequestMethod.GET)
-    public String legacyRecommendations(HttpServletRequest request) {
-        // generate new url
-        String queryParams = (request.getQueryString() != null) ? "?" + request.getQueryString() : "";
-        String urlToRedirect = StringUtils.replace(request.getRequestURI(), "/search", "/recommendations") + queryParams;
-
-        // replace uids
-        urlToRedirect = uid.fixDeprecatedFormatIfNecessary(urlToRedirect);
-
-        // redirect
-        return "redirect:" + urlToRedirect;
-    }
-
-    @RequestMapping(value = {"/recommendations/games-like-{gameUid}"}, method = RequestMethod.GET)
-    public Object legacyGamesLikeRecommendations(@PathVariable(value = "gameUid") String gameUid) {
-
-        // generate new url
-        String urlToRedirect = "/recommendations/" + gameUid;
-
-        // redirect
-        return "redirect:" + urlToRedirect;
-    }
-
     @RequestMapping(value = {"/recommendations/**"}, method = RequestMethod.GET)
     public Object recommendations(HttpServletRequest request) {
         // prerender
@@ -72,11 +49,8 @@ public class AppController {
             }
         }
 
-        // normal flow
-        Map<String, Object> model = basicModel();
-
         // render
-        return new ModelAndView("index", model);
+        return "forward:/index.html";
     }
 
     // =========================================================================
@@ -106,17 +80,5 @@ public class AppController {
 
         // download sitemap
         return String.format("forward:/app/files/%s", sitemapPath);
-    }
-
-    // =========================================================================
-    // HELPER
-    // =========================================================================
-    private Map<String, Object> basicModel() {
-        Map<String, Object> model = Maps.newHashMap();
-        model.put("development", environment.isDevelopment());
-        model.put("production", environment.isProduction());
-        model.put("version", environment.getApplicationVersion());
-
-        return model;
     }
 }

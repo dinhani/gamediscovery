@@ -39,23 +39,23 @@ public class Environment {
 
     // =========================================================================
     // DATA
-    // =========================================================================    
+    // =========================================================================
     private String currentEnviroment;
     private String currentVersion;
     private final Map<String, String> scripts = Maps.newHashMap();
 
     // =========================================================================
     // SERVICES
-    // =========================================================================    
+    // =========================================================================
     @Autowired
     private DIService di;
 
-    // LOGGER    
+    // LOGGER
     private final Logger LOGGER = LogProducer.getLogger(Environment.class);
 
     // =========================================================================
     // INITIALIZATION
-    // =========================================================================    
+    // =========================================================================
     @PostConstruct
     public void init() {
         LOGGER.info(LogMarker.INIT, "Initializing Environment");
@@ -69,11 +69,11 @@ public class Environment {
             return;
         }
 
-        // read fro env        
+        // read fro env
         String tempEnvironment = System.getenv(PROJECT_STAGE);
 
         // if not set, use development
-        // if set a invalid value, use development        
+        // if set a invalid value, use development
         if (StringUtils.isBlank(tempEnvironment)) {
             LOGGER.warn(LogMarker.INIT, "{} variable is not set in the environment. Defaulting to {}", PROJECT_STAGE, PROJECT_STAGE_DEVELOPMENT);
             tempEnvironment = PROJECT_STAGE_DEVELOPMENT;
@@ -82,7 +82,7 @@ public class Environment {
             tempEnvironment = PROJECT_STAGE_DEVELOPMENT;
         }
 
-        // set project stage        
+        // set project stage
         currentEnviroment = tempEnvironment;
         LOGGER.trace(LogMarker.INIT, "Setting project stage | stage={}", currentEnviroment);
     }
@@ -106,12 +106,12 @@ public class Environment {
 
         // execute
         try {
-            // get the script path        
+            // get the script path
             String scriptPath = scripts.get(script.getFilename());
 
             // create the script in the filesystem if not already created
             if (scriptPath == null) {
-                // read and write script to filesystem            
+                // read and write script to filesystem
                 scriptPath = script.getFilename();
                 String scriptContent = IOUtils.toString(script.getInputStream());
                 FileUtils.writeStringToFile(new File(SCRIPTS_FOLDER + scriptPath), scriptContent);
@@ -125,7 +125,7 @@ public class Environment {
             LOGGER.info("Executing command | command=\"{}\"", command);
             Process process = Runtime.getRuntime().exec(command);
 
-            // read output        
+            // read output
             String scriptOutput = IOUtils.toString(process.getInputStream());
             process.waitFor();
 

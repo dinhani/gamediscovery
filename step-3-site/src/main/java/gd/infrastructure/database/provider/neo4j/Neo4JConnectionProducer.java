@@ -56,7 +56,6 @@ public class Neo4JConnectionProducer {
                 .setConfig(GraphDatabaseSettings.pagecache_memory, "64M")
                 .setConfig(GraphDatabaseSettings.allow_store_upgrade, "true")
                 .setConfig(GraphDatabaseSettings.keep_logical_logs, "false")
-                //.setConfig(GraphDatabaseSettings.read_only, "true")
                 .newGraphDatabase();
         return graph;
     }
@@ -67,7 +66,6 @@ public class Neo4JConnectionProducer {
     }
 
     @Bean
-    @Profile(gd.infrastructure.enviroment.Profile.WEB)
     @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
     public Neo4jSession neo4jSessionWeb() throws URISyntaxException, IllegalAccessException {
         return (Neo4jSession) sessionFactory.openSession();

@@ -1,0 +1,28 @@
+/* ========================================================================== */
+/* SMOOTH */
+/* ========================================================================== */
+.fx-smooth  {
+    opacity: 1;
+    transition: all linear 0.5s;
+}
+.fx-smooth.ng-hide {
+    opacity: 0;    
+}
+
+/* ========================================================================== */
+/* REVEAL */
+/* ========================================================================== */
+.fx-reveal.ng-enter {    
+    opacity: 0;    
+    transition:all linear 0.5s;        
+}
+.fx-reveal.ng-enter-active {    
+    opacity: 1;
+}
+.fx-reveal.ng-leave {    
+    opacity: 1;    
+    transition:all linear 0.5s;
+}
+.fx-reveal.ng-leave-active {
+    opacity: 0;
+}

@@ -8,32 +8,22 @@
     <groupId>gd</groupId>
     <artifactId>gamediscovery-site</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
 
     <!-- =================================================================== -->
     <!-- PROPERTIES -->
     <!-- =================================================================== -->
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+     <properties>
+        <java.version>1.8</java.version>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>neo4j</id>
-            <url>http://m2.neo4j.org/content/repositories/releases</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>neo4j-snapshots</id>
-            <url>http://m2.neo4j.org/content/repositories/snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+    <!-- =================================================================== -->
+    <!-- PARENT -->
+    <!-- =================================================================== -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.2.RELEASE</version>
+    </parent>
 
     <!-- =================================================================== -->
     <!-- DEPENDENCIES -->
@@ -43,24 +33,14 @@
         <!-- =============================================================== -->
         <!-- WEB -->
         <!-- =============================================================== -->
-        <!-- JETTY -->
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
-            <version>7.5.4.v20111024</version>
+         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-servlets</artifactId>
-            <version>7.5.4.v20111024</version>
-        </dependency>
-
-        <!-- SPRING -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>4.1.9.RELEASE</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
         <!-- JSON -->
@@ -70,46 +50,9 @@
             <version>1.1</version>
         </dependency>
 
-        <!-- ASSETS -->
-        <dependency>
-            <groupId>ro.isdc.wro4j</groupId>
-            <artifactId>wro4j-core</artifactId>
-            <version>1.8.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>ro.isdc.wro4j</groupId>
-            <artifactId>wro4j-extensions</artifactId>
-            <version>1.8.0</version>
-        </dependency>
-
-
-        <!-- SERVLET -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
-        </dependency>
-
-        <!-- URL REWRITE -->
-        <dependency>
-            <groupId>org.tuckey</groupId>
-            <artifactId>urlrewritefilter</artifactId>
-            <version>4.0.4</version>
-        </dependency>
-
-
-
         <!-- =============================================================== -->
         <!-- DOMAIN -->
         <!-- =============================================================== -->
-        <!-- ASPECTS -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aspects</artifactId>
-            <version>4.1.9.RELEASE</version>
-        </dependency>
-
         <!-- GRAPH -->
         <dependency>
             <groupId>org.jgrapht</groupId>
@@ -143,39 +86,26 @@
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j</artifactId>
-            <version>3.1.2</version>
+            <version>3.2.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-ogm-core</artifactId>
-            <version>2.1.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.neo4j</groupId>
-            <artifactId>neo4j-ogm-http-driver</artifactId>
-            <version>2.1.1</version>
+            <version>2.1.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-ogm-embedded-driver</artifactId>
-            <version>2.1.1</version>
-        </dependency>
-
-        <!-- CACHE -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>4.1.9.RELEASE</version>
+            <version>2.1.2</version>
         </dependency>
 
         <!-- HTML -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.9.2</version>
+            <version>1.10.2</version>
         </dependency>
 
         <!-- =============================================================== -->
@@ -185,17 +115,8 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.1.7</version>
+            <version>1.2.3</version>
         </dependency>
-
-        <!-- EXCEPTIONS -->
-        <dependency>
-            <groupId>com.mindscapehq</groupId>
-            <artifactId>core</artifactId>
-            <version>[2.0.0,3.0.0)</version>
-        </dependency>
-
-
 
         <!-- =============================================================== -->
         <!-- UTILS -->
@@ -214,12 +135,6 @@
             <version>4.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>net.sf.trove4j</groupId>
-            <artifactId>trove4j</artifactId>
-            <version>3.0.3</version>
-        </dependency>
-
         <!-- LANG -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -231,7 +146,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>19.0</version>
+            <version>21.0</version>
         </dependency>
 
         <!-- MATH -->
@@ -240,7 +155,6 @@
             <artifactId>commons-math3</artifactId>
             <version>3.6.1</version>
         </dependency>
-
 
         <!-- REFLECTION -->
         <dependency>
@@ -261,135 +175,16 @@
             <artifactId>unirest-java</artifactId>
             <version>1.4.9</version>
         </dependency>
-
-
-        <!-- =============================================================== -->
-        <!-- TEST -->
-        <!-- =============================================================== -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>4.1.9.RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-            <version>2.0.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <version>1.3</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <!-- =================================================================== -->
     <!-- BUILD -->
     <!-- =================================================================== -->
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>node_modules</exclude>
-                </excludes>
-            </resource>
-        </resources>
-
         <plugins>
-            <!-- SOURCE -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-
-            <!-- WRO4J -->
-            <plugin>
-                <groupId>ro.isdc.wro4j</groupId>
-                <artifactId>wro4j-maven-plugin</artifactId>
-                <version>1.8.0</version>
-                <configuration>
-                    <wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
-                    <targetGroups>gamediscovery</targetGroups>
-                    <destinationFolder>${basedir}/src/main/webapp/app/assets/dist/</destinationFolder>
-                </configuration>
-            </plugin>
-
-            <!-- WAR -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <failOnMissingWebXml>true</failOnMissingWebXml>
-                    <attachClasses>true</attachClasses>
-                    <archive>
-                        <manifestEntries>
-                            <Build-Time>${build.time}</Build-Time>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-
-            <!-- WAR - HELPER -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.12</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>timestamp-property</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <name>build.time</name>
-                    <pattern>yyyyMMddHHmmss</pattern>
-                </configuration>
-            </plugin>
-
-            <!-- JETTY -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.10</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.mortbay.jetty</groupId>
-                                    <artifactId>jetty-runner</artifactId>
-                                    <version>7.5.4.v20111024</version>
-                                    <destFileName>jetty-runner.jar</destFileName>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

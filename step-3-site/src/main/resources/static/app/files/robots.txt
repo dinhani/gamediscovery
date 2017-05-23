@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /contribute
+Sitemap: http://www.gamediscovery.net/sitemap.xml.gz

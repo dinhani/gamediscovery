@@ -55,7 +55,7 @@ public class UID {
         // 2.7) transform underscores into dashes
         namePart = StringUtils.replace(namePart, "_", "-");
 
-        // 2.8) compact dashes        
+        // 2.8) compact dashes
         namePart = namePart.replaceAll(DASH_COMPACTATION_REGEX, "-");
 
         // 2.9) remove leading dash
@@ -73,18 +73,5 @@ public class UID {
         uid = uid + "-" + System.currentTimeMillis();
 
         return uid;
-    }
-
-    public String fixDeprecatedFormatIfNecessary(String uid) {
-        return StringUtils.replace(uid, "_", "-");
-    }
-
-    // =====================================================================
-    // TEST
-    // =====================================================================
-    public static void main(String[] args) {
-        UID uid = new UID();
-        System.out.println(uid.generateUid(Game.class, "Black & White"));
-        System.out.println(uid.generateUid(Game.class, "Fire-Brigade: The Battle for Kiev - 1943"));
     }
 }

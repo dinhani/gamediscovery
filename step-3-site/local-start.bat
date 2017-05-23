@@ -1,1 +1,1 @@
-java -Xmx768M -Dactivejdbc.log -Xdebug -Xrunjdwp:transport=dt_socket,address=8585,server=y,suspend=n -jar "target/dependency/jetty-runner.jar" --port 3001 "target/gamediscovery-site-1.0-SNAPSHOT.war"
+mvn spring-boot:run

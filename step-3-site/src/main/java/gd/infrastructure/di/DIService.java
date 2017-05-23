@@ -8,7 +8,6 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.Resource;
 
 @GDService
@@ -32,10 +31,6 @@ public class DIService {
     // =========================================================================
     // FACTORY
     // =========================================================================
-    public static ConfigurableEnvironment getEnvironment() {
-        return (ConfigurableEnvironment) ctx.getEnvironment();
-    }
-
     public static <T> T getBean(Class<T> type) {
         return ctx.getBean(type);
     }

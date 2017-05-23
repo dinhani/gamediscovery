@@ -1,6 +1,5 @@
 package gd.infrastructure.error;
 
-import com.mindscapehq.raygun4java.core.RaygunClient;
 import gd.infrastructure.enviroment.Environment;
 import gd.infrastructure.steriotype.GDService;
 import javax.annotation.PostConstruct;

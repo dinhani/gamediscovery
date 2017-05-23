@@ -6,7 +6,6 @@ import gd.domain.entities.entity.ConceptType;
 import gd.domain.recommendations.Recommendations;
 import gd.domain.recommendations.dto.GameDiscoverySearch;
 import gd.domain.recommendations.dto.GameLinks;
-import gd.infrastructure.analytics.Analytics;
 import gd.infrastructure.database.QueryPagination;
 import gd.infrastructure.error.AlreadyExistsException;
 import gd.infrastructure.error.GameDiscoveryException;
@@ -45,9 +44,6 @@ public class GameDiscoveryAPI {
 
     // SERVICES
     @Autowired
-    private Analytics analytics;
-
-    @Autowired
     private gd.infrastructure.error.Error error;
 
     @Autowired
@@ -65,7 +61,7 @@ public class GameDiscoveryAPI {
 
     // =========================================================================
     // CONCEPTS
-    // =========================================================================    
+    // =========================================================================
     @RequestMapping(value = "/concepts", method = RequestMethod.GET)
     public ResponseEntity getConceptTypes() {
         // log
@@ -80,15 +76,13 @@ public class GameDiscoveryAPI {
 
     // =========================================================================
     // CONCEPTS ENTRIES (QUERY)
-    // =========================================================================    
+    // =========================================================================
     @RequestMapping(value = "/concepts/all", method = RequestMethod.GET)
     public ResponseEntity searchConceptsEntries(
             @RequestParam(value = "query", required = false, defaultValue = "") String query,
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
         // log
         LOGGER.info(LogMarker.API, "Retrieving concept entries | query={}, page={}", query, page);
-        analytics.track("Query", "type", "all", "query", query);
-
         // process
         Collection<ConceptEntry> conceptEntries = entities.getConceptEntries(query, QueryPagination.fromPage(page, SEARCH_PAGINATION_SIZE));
 
@@ -103,7 +97,6 @@ public class GameDiscoveryAPI {
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
         // log
         LOGGER.info(LogMarker.API, "Retrieving concept entries | typeUid={}, query={}, page={}", typeUid, query, page);
-        analytics.track("Query", "type", typeUid, "query", query);
 
         // parse
         ConceptType type = entities.getConceptTypeThrowExceptionIfNotFound(typeUid);
@@ -140,7 +133,6 @@ public class GameDiscoveryAPI {
         ConceptType type = entities.getConceptTypeThrowExceptionIfNotFound(typeUid);
 
         // process
-        entryUid = uid.fixDeprecatedFormatIfNecessary(entryUid);
         Optional<ConceptEntry> opConceptEntry = entities.getConceptEntry(type, entryUid, fetchRelationships);
 
         // response
@@ -165,7 +157,6 @@ public class GameDiscoveryAPI {
         LOGGER.info(LogMarker.API, "Retrieving game links | typeUid=game, gameUid={}", gameUid);
 
         // process
-        gameUid = uid.fixDeprecatedFormatIfNecessary(gameUid);
         GameLinks gameLinks = recommendations.getGameLinks(gameUid);
 
         // response
@@ -187,7 +178,6 @@ public class GameDiscoveryAPI {
         }
 
         // process
-        conceptEntryUids = Arrays.stream(conceptEntryUids).map(entryUid -> uid.fixDeprecatedFormatIfNecessary(entryUid)).toArray(size -> new String[size]);
         GameDiscoverySearch gameQuery = recommendations.getRelatedGames(conceptEntryUids, categoryUids, QueryPagination.fromPage(page, RELATED_GAMES_PAGINATION_SIZE));
 
         // response
@@ -204,7 +194,7 @@ public class GameDiscoveryAPI {
         if (e instanceof GameDiscoveryException || e instanceof ServletRequestBindingException) {
             LOGGER.warn(LogMarker.API, "Handled exception | ex={}", e.getMessage());
         }
-        // handle applications exceptions        
+        // handle applications exceptions
         if (e instanceof NotExistsException) {
             return response.badRequest(e.getMessage());
         }

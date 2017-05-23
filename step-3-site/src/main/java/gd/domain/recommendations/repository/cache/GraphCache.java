@@ -6,7 +6,6 @@ import gd.infrastructure.graph.ImprovedWeightedGraph;
 import gd.infrastructure.database.AbstractDatabaseCommand;
 import gd.infrastructure.log.LogMarker;
 import gd.infrastructure.log.LogProducer;
-import gd.infrastructure.memory.Memory;
 import gd.infrastructure.web.DummyRequestAttributes;
 import gd.infrastructure.steriotype.GDCache;
 import java.util.Collection;
@@ -25,16 +24,13 @@ public class GraphCache extends AbstractDatabaseCommand {
 
     // =========================================================================
     // GRAPHS
-    // =========================================================================        
+    // =========================================================================
     // JGRAPHT
     private ImprovedWeightedGraph graph;
 
     // =========================================================================
     // OTHERS
     // =========================================================================
-    @Autowired
-    private Memory memory;
-
     @Autowired
     private gd.infrastructure.math.Math math;
 
@@ -50,7 +46,6 @@ public class GraphCache extends AbstractDatabaseCommand {
     @PostConstruct
     public void init() {
         graph = buildGraph();
-        memory.gc();
     }
 
     // =========================================================================
@@ -70,7 +65,7 @@ public class GraphCache extends AbstractDatabaseCommand {
             return new ImprovedWeightedGraph(ImprovedWeightedEdge.class);
         }
 
-        // 1.2) parse results        
+        // 1.2) parse results
         double maxWeight = ((Number) weightRow.get("max")).doubleValue();
 
         // ---------------------------------------------------------------------
@@ -92,7 +87,7 @@ public class GraphCache extends AbstractDatabaseCommand {
                     + "MATCH (s)-[r]->(m) RETURN s.uid AS source, m.uid as target, SUM(r.weight) AS `weight`";
             Result dataRes = neo4jSession.query(dataCypher, Collections.EMPTY_MAP);
 
-            // process results                        
+            // process results
             dataRes.iterator().forEachRemaining(dataRow -> {
                 // get data
                 String source = (String) dataRow.get("source");
