@@ -1,23 +1,23 @@
 source 'https://rubygems.org'
 
 # helpers
-gem 'jbundler'
-gem 'thread'
-gem 'andand'
-gem 'stopwords-filter'
 gem 'activesupport'
+gem 'andand'
+gem 'jbundler'
+gem 'stopwords-filter'
+gem 'thread'
 
 # request / json / xml / html
-gem 'selenium-webdriver'
-gem 'nokogiri'
 gem 'jrjackson'
+gem 'nokogiri'
+gem 'selenium-webdriver'
 gem 'unirest'
 
 # persistence
+gem 'jdbc-postgres'
 gem 'mongo'
 gem 'neo4j'
 gem 'neography'
-gem 'sequel'
-gem 'jdbc-postgres'
 gem 'rubyzip'
+gem 'sequel'
 gem 'sitemap_generator'

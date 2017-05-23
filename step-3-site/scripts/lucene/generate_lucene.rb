@@ -1,11 +1,12 @@
 require 'jbundler'
-require 'neo4j'
 require 'jrjackson'
 
 java_import 'java.io.File'
 java_import 'java.nio.file.Paths'
 
 java_import 'org.apache.commons.io.FileUtils'
+
+java_import 'org.neo4j.graphdb.factory.GraphDatabaseFactory'
 
 java_import 'org.apache.lucene.document.Document'
 java_import 'org.apache.lucene.document.Field'
@@ -17,9 +18,6 @@ java_import 'org.apache.lucene.index.IndexWriter'
 java_import 'org.apache.lucene.index.IndexWriterConfig'
 java_import 'org.apache.lucene.analysis.standard.StandardAnalyzer'
 java_import 'org.apache.lucene.store.SimpleFSDirectory'
-
-java_import 'org.neo4j.driver.v1.AuthTokens'
-java_import 'org.neo4j.driver.v1.GraphDatabase'
 
 # ==============================================================================
 # CONSTANTS
@@ -50,14 +48,14 @@ def add_document(index_writer, row)
     doc = Document.new
 
     # 1) BASIC FIELDS
-    uid = row.get("uid").asObject()
-    name = row.get("name").asObject()
-    image = row.get("image").asObject()
-    label = row.get("label").asObject()
-    label = row.get("label_2").asObject() if label == "ConceptEntry"
-    aliase = row.get("alias").asObject() unless row.get("alias").nil?
+    uid = row.get("uid")
+    name = row.get("name")
+    image = row.get("image")
+    label = row.get("label")
+    label = row.get("label_2") if label == "ConceptEntry"
+    aliase = row.get("alias") unless row.get("alias").nil?
     aliase = "" if aliase.nil?
-    numberOfGames = row.get("games").asInt()
+    numberOfGames = row.get("games")
 
     puts uid
 
@@ -70,7 +68,7 @@ def add_document(index_writer, row)
     search = label.to_s + " " + name.to_s + " " + aliase.to_s + " " + name_without_special_chars.to_s
 
     # 2.2) platforms
-    platforms = row.get("platforms").asList()
+    platforms = row.get("platforms")
 
     # 3) INDEX FIELDS
     # 3.1) DOCUMENT BOOST
@@ -114,8 +112,12 @@ query = "
     OPTIONAL MATCH (n)<-[:PUBLISHES]-(p:Platform)
     RETURN n.uid as uid, n.name as name, n.alias as alias, n.image as image, labels(n)[1] as label, labels(n)[0] as label_2, COUNT(g) as games, COLLECT(p.name) as platforms"
 
-neo4j = GraphDatabase.driver(ENV['GD_NEO4J_CONN_BOLT'], AuthTokens.basic(ENV['GD_NEO4J_CONN_USER'], ENV['GD_NEO4J_CONN_PASSWORD'])).session()
-results = neo4j.run(query)
+neo4j = GraphDatabaseFactory
+    .new
+    .newEmbeddedDatabaseBuilder(File.new(ENV['GD_DATA_NEO4J']))
+    .newGraphDatabase();
+
+results = neo4j.execute(query)
 
 puts "3) Recreating index"
 results.each do |row|
@@ -124,4 +126,4 @@ end
 
 puts "4) Closing index and Neo4J"
 index_writer.close()
-neo4j.close()
+neo4j.shutdown()
