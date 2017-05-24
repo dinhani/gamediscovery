@@ -1,4 +1,17 @@
 // =============================================================================
+// HTML
+// =============================================================================
+app.component('searchResults', {
+    templateUrl: 'search-results.html',
+    controller: 'SearchResultsController',
+    bindings: {
+        games: '=',
+        gamesTotalResults: '=',
+        searching: '='
+    }
+});
+
+// =============================================================================
 // JS
 // =============================================================================
 app.controller('SearchResultsController', function ($scope, $rootScope, hotkeys,
@@ -111,54 +124,3 @@ app.controller('SearchResultsController', function ($scope, $rootScope, hotkeys,
         });
 
 })
-
-// =============================================================================
-// HTML
-// =============================================================================
-app.component('searchResults', {
-    template: `
-        <div id="search-results">
-            <!-- HEADER -->
-            <h1 class="ui top attached big header" >
-                {{$ctrl.gamesTotalResults}} <span translate>games found
-            </h1>
-
-            <!-- CONTENT -->
-            <div class="ui bottom attached segment">
-
-                <!-- LOADING -->
-                <div class="big text" ng-show="$ctrl.searching">
-                    <br/>
-                    <span translate>Loading</span>...
-                    <br/><br/><br/>
-                </div>
-
-                <!-- GAMES -->
-                <ol class="ui eight column doubling grid">
-                    <li class="column" ng-repeat="game in $ctrl.games track by $index">
-                        <game-card game="game.game" index="{{$index + 1}}" show-game="showGame(game)"></game-card>
-                    </li>
-                </ol>
-
-                <!-- LOAD MORE -->
-                <div class="ui one column grid" ng-show="$ctrl.games && $ctrl.games.length < $ctrl.gamesTotalResults">
-
-                    <!-- BUTTON -->
-                    <div class="column">
-                        <a ng-click="loadMoreGames()" class="ui big {{$ctrl.searching ? 'disable' : ''}} button"
-                            translate>Load more games</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- GAME DETAILS -->
-            <game-details class="ui modal" game="data.selectedGame" game-links="data.selectedGameLinks"></game-details>
-        </div>
-    `,
-    controller: 'SearchResultsController',
-    bindings: {
-        games: '=',
-        gamesTotalResults: '=',
-        searching: '='
-    }
-});

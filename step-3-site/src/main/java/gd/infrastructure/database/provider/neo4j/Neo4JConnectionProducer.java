@@ -70,12 +70,4 @@ public class Neo4JConnectionProducer {
     public Neo4jSession neo4jSessionWeb() throws URISyntaxException, IllegalAccessException {
         return (Neo4jSession) sessionFactory.openSession();
     }
-
-    @Bean
-    @Profile(gd.infrastructure.enviroment.Profile.STANDALONE)
-    @Scope(value = "prototype", proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public Neo4jSession neo4jSessionStandalone() throws URISyntaxException, IllegalAccessException {
-        return (Neo4jSession) sessionFactory.openSession();
-    }
-
 }

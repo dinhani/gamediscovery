@@ -5,7 +5,7 @@ const $ = require('gulp-load-plugins')()
 // =============================================================================
 // CSS
 // =============================================================================
-gulp.task('css', function(){
+gulp.task('css', ['css-fonts'], function(){
     // LIBS
     let libs = gulp.src(filesExist([
         'node_modules/semantic-ui/dist/semantic.min.css',
@@ -14,13 +14,23 @@ gulp.task('css', function(){
     .pipe($.concat('gamediscovery-libs.css'))
 
     // APP
-    let app = gulp.src('src/main/resources/static/**/*.css')
+    let app = gulp.src('src/main/resources/static/app/styles/*.css')
         .pipe($.concat('gamediscovery.css'))
 
     // MERGE
     return $.merge(libs,app)
+        // minify
         .pipe($.concat('gamediscovery.css'))
+        .pipe($.cleanCss())
         .pipe(gulp.dest('src/main/resources/static/dist'))
+        // gzip
+        .pipe($.gzip({ gzipOptions: { level: 9 } }))
+        .pipe(gulp.dest('src/main/resources/static/dist'))
+})
+
+gulp.task('css-fonts', function(){
+    return gulp.src('node_modules/semantic-ui/dist/themes/**')
+        .pipe(gulp.dest('src/main/resources/static/dist/themes'))
 })
 
 // =============================================================================
@@ -30,7 +40,7 @@ gulp.task('js', function(){
     // LIBS
     let libs = gulp.src(filesExist([
         // general
-        'node_modules/underscore/underscore-min.min.js',
+        'node_modules/underscore/underscore-min.js',
         'node_modules/underscore.string/dist/underscore.string.min.js',
         'node_modules/jsog/lib/JSOG.js',
         'node_modules/jquery/dist/jquery.min.js',
@@ -48,11 +58,18 @@ gulp.task('js', function(){
 
     // APP
     let app = gulp.src('src/main/resources/static/app/**/*.js')
+        .pipe($.angularEmbedTemplates())
+        .pipe($.babel({presets: ['es2015']}))
+        .pipe($.uglify({mangle:false}))
         .pipe($.concat('gamediscovery-app.js'))
 
     // MERGE
     return $.merge(libs, app)
+        // minify
         .pipe($.concat('gamediscovery.js'))
+        .pipe(gulp.dest('src/main/resources/static/dist'))
+        // gzip
+        .pipe($.gzip({ gzipOptions: { level: 9 } }))
         .pipe(gulp.dest('src/main/resources/static/dist'))
 })
 
@@ -60,8 +77,8 @@ gulp.task('js', function(){
 // HTML
 // =============================================================================
 gulp.task('html', function(){
-    gulp.src('src/main/resources/static/**/*.html')
-        .pipe($.htmlmin({collapseWhitespace: true}))
+    gulp.src('src/main/resources/static/index.html')
+        .pipe($.htmlmin({collapseWhitespace: true, collapseBooleanAttributes:true}))
         .pipe(gulp.dest('src/main/resources/static/dist'))
 })
 
@@ -76,4 +93,9 @@ gulp.task('clean', function(){
 // =============================================================================
 // EXECUTION
 // =============================================================================
+gulp.task('watch', function(){
+    gulp.watch('src/main/resources/static/**/*.css', ['css'])
+    gulp.watch('src/main/resources/static/**/*.js',  ['js'])
+    gulp.watch('src/main/resources/static/**/*.html', ['js', 'html'])
+})
 gulp.task('default', ['css', 'js', 'html'])

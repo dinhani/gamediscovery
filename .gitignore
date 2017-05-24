@@ -23,6 +23,7 @@
 hs_err_pid*
 
 # NODE FILES
+**/node
 **/node_modules
 
 # PYTHON FILES

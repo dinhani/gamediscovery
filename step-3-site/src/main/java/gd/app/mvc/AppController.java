@@ -1,4 +1,4 @@
-package gd.app.web.mvc;
+package gd.app.mvc;
 
 import com.google.common.collect.Maps;
 import gd.infrastructure.enviroment.Environment;
