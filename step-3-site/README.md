@@ -2,27 +2,13 @@
 
 ## Running in development
 
-Install Bower dependencies with:
+Just execute:
 
 ```
-bower install
+mvn spring-boot:run
 ```
-
-Generate Lucene index files with:
-
-```
-scripts/lucene/generate_lucene.bat
-```
-
-Build and run with:
-```
-build.bat
-local-start.bat
-```
-
 
 ## Running in production
-
 
 Set the environment variable:
 
