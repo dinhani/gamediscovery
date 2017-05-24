@@ -49,7 +49,7 @@ public class Neo4JConnectionProducer {
     @Bean
     public GraphDatabaseService graph() {
         String neo4jFolder = environment.readValue(NEO4J_PATH);
-        neo4jFolder = StringUtils.isNotBlank(neo4jFolder) ? neo4jFolder : "database";
+        neo4jFolder = StringUtils.isNotBlank(neo4jFolder) ? neo4jFolder : "neo4j";
         LOGGER.info(LogMarker.INIT, "Neo4J folder | path={}", neo4jFolder);
 
         GraphDatabaseService graph = new GraphDatabaseFactory()
