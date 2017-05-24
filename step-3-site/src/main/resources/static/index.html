@@ -26,50 +26,42 @@
     <meta name="keywords" content="Video games recommendations, Video games search engine, Video games database" />
     <meta name="application-name" content="Game Discovery" />
 
-    <!-- OPEN GRAPH -->
-    <meta name="og:title" content="Game Discovery | The most advanced game search engine" />
-    <meta name="og:description" content="Check out new games with the same characteristics of your favorite games" />
-
-    <!-- METADATA (SITE) -->
-    <script type="application/ld+json">
-        {
-    "@context" : "http://schema.org",
-    "@type" : "WebSite",
-    "name" : "Game Discovery",
-    "url" : "http://www.gamediscovery.net/",
-    "sameAs" : [
-    "http://www.facebook.com/gamediscovery.net"
-    ]
-    }
+     <!-- TEMPLATE -->
+    <script type="text/ng-template" id="tag-template">
+        <span style="font-weight:bold">{{$getDisplayText()}}</span>
+        <span class='alias' ng-if="data.alias">({{data.alias}})</span>
+        <br/>
+        {{data.type.name}}
     </script>
 </head>
 
-<body ng-controller="AppController">
+<body ng-controller="AppController" class="ui container">
     <!-- HEADER -->
-    <div id="app-header" class="shadowed">
-        <div class="ui middle aligned grid">
+    <div id="pageheader" class="ui top attached segment">
+        <div class="ui middle aligned two column stackable grid">
 
-            <!-- HEADER -->
-            <div class="twelve wide computer sixteen wide mobile column only">
-                <a class="ui header clickable" ng-click="changeToMain()">
+            <!-- TITLE -->
+            <div class="column">
+                <a class="ui huge header" ng-click="changeToMain()">
                     <div class="content">
-                        <span class="massive header">Game Discovery</span>
-                        <div class="medium sub header" translate>The most advanced game search engine</div>
+                        <span class="header">Game Discovery</span>
+                        <div class="sub header" translate>The most advanced game search engine</div>
                     </div>
                 </a>
             </div>
 
             <!-- LANGUAGE -->
-            <div class="four wide computer sixteen wide mobile right aligned column">
+            <div class="right aligned column">
                 <language-selector></language-selector>
             </div>
         </div>
     </div>
 
     <!-- CONTENT -->
-    <div id="app-content" class="ui fluid container" style="padding:0 2rem">
+    <div class="ui attached segment">
         <search filters="data.filters" games="data.games" games-total-results="data.gamesTotalResults" searching="data.isSearchingGames"></search>
-        <br/>
+    </div>
+    <div class="ui bottom attached segment">
         <search-results games="data.games" games-total-results="data.gamesTotalResults" searching="data.isSearchingGames"></search-results>
     </div>
 

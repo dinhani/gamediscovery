@@ -1,0 +1,9 @@
+.link{
+    text-decoration: none;
+    cursor: pointer !important;
+
+    color: $color-primary;
+    &:link, &:visited, &:hover, &:active{
+        color: $color-primary !important;
+    }
+}

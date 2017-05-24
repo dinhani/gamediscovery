@@ -1,0 +1,32 @@
+@mixin font-sectionheader{
+    // position
+    margin-bottom: 1rem;
+
+    // font
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+
+    // color
+    color: $color-primary;
+}
+
+@mixin font-itemheader{
+    // font
+    font-size: 1rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    // color
+    color: $color-black;
+}
+
+@mixin font-itemsubheader{
+    // font
+    font-size: 1rem;
+
+    // color
+    color: $color-black;
+}

@@ -1,3 +1,4 @@
+const browserSync = require('browser-sync').create();
 const filesExist = require('files-exist');
 const gulp = require('gulp')
 const $ = require('gulp-load-plugins')()
@@ -11,21 +12,35 @@ gulp.task('css', ['css-fonts'], function(){
         'node_modules/semantic-ui/dist/semantic.min.css',
         'node_modules/ng-tags-input/build/ng-tags-input.min.css'
     ]))
+    .pipe($.cssRemoveAttributes(['color'], {compress: true}))
     .pipe($.concat('gamediscovery-libs.css'))
 
     // APP
-    let app = gulp.src('src/main/resources/static/app/styles/*.css')
-        .pipe($.concat('gamediscovery.css'))
+    let appSass = gulp.src(
+        [
+            'src/main/resources/static/app/styles/**/*.scss'
+        ])
+        .pipe($.concat('gamediscovery-sass.scss'))
+        .pipe($.sass().on('error', $.sass.logError))
+        .pipe($.concat('gamediscovery-sass.css'))
+
+    let appCss = gulp.src(
+        [
+            'src/main/resources/static/app/styles/**/*.css'
+        ])
+        .pipe($.concat('gamediscovery.scss'))
+        .pipe($.concat('gamediscovery-css.css'))
 
     // MERGE
-    return $.merge(libs,app)
+    return $.merge(libs, appSass, appCss)
         // minify
         .pipe($.concat('gamediscovery.css'))
         .pipe($.cleanCss())
         .pipe(gulp.dest('src/main/resources/static/dist'))
+        .pipe(gulp.dest('target/classes/static/dist'))
         // gzip
-        .pipe($.gzip({ gzipOptions: { level: 9 } }))
-        .pipe(gulp.dest('src/main/resources/static/dist'))
+        // .pipe($.gzip({ gzipOptions: { level: 9 } }))
+        // .pipe(gulp.dest('src/main/resources/static/dist'))
 })
 
 gulp.task('css-fonts', function(){
@@ -68,9 +83,10 @@ gulp.task('js', function(){
         // minify
         .pipe($.concat('gamediscovery.js'))
         .pipe(gulp.dest('src/main/resources/static/dist'))
+        .pipe(gulp.dest('target/classes/static/dist'))
         // gzip
-        .pipe($.gzip({ gzipOptions: { level: 9 } }))
-        .pipe(gulp.dest('src/main/resources/static/dist'))
+        // .pipe($.gzip({ gzipOptions: { level: 9 } }))
+        // .pipe(gulp.dest('src/main/resources/static/dist'))
 })
 
 // =============================================================================
@@ -80,6 +96,7 @@ gulp.task('html', function(){
     gulp.src('src/main/resources/static/index.html')
         .pipe($.htmlmin({collapseWhitespace: true, collapseBooleanAttributes:true}))
         .pipe(gulp.dest('src/main/resources/static/dist'))
+        .pipe(gulp.dest('target/classes/static/dist'))
 })
 
 // =============================================================================
@@ -93,9 +110,19 @@ gulp.task('clean', function(){
 // =============================================================================
 // EXECUTION
 // =============================================================================
-gulp.task('watch', function(){
-    gulp.watch('src/main/resources/static/**/*.css', ['css'])
-    gulp.watch('src/main/resources/static/**/*.js',  ['js'])
-    gulp.watch('src/main/resources/static/**/*.html', ['js', 'html'])
+gulp.task('browser-sync', function() {
+    browserSync.init({proxy: "http://localhost:9000"});
+});
+gulp.task('watch', ['browser-sync', 'build'], function(){
+    gulp.watch('src/main/resources/static/app/styles/*.css',     ['build-reload'])
+    gulp.watch('src/main/resources/static/app/styles/**/*.scss', ['build-reload'])
+    gulp.watch('src/main/resources/static/app/**/*.js',          ['build-reload'])
+    gulp.watch('src/main/resources/static/app/**/*.html',        ['build-reload'])
+    gulp.watch('src/main/resources/static/index.html',           ['build-reload'])
 })
-gulp.task('default', ['css', 'js', 'html'])
+
+gulp.task('build-reload', ['build'], function () {
+    return browserSync.reload()
+})
+gulp.task('build', ['js', 'css', 'html'])
+gulp.task('default', ['build'])

@@ -1,0 +1,23 @@
+.gamecard{
+
+}
+.gamecard__image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: $color-black;
+    height:300px;
+
+    img{
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+}
+.gamecard__header{
+    @include font-itemheader;
+}
+.gamecard__year{
+    @include font-itemsubheader;
+}

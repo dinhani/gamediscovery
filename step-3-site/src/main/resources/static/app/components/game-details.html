@@ -1,8 +1,8 @@
 <!-- HEADER -->
 <div class="ui top attached segment">
-    <h2 class="ui big centered header" ng-cloak>
+    <div class="ui big centered header" ng-cloak>
         <span ng-show="$ctrl.index">{{$ctrl.index + 1}}.</span> {{$ctrl.game.name}}
-    </h2>
+    </div>
 </div>
 
 <!-- CLOSE -->
@@ -12,9 +12,9 @@
 <div id="game" class="ui styled fluid accordion">
 
     <!-- OVERVIEW -->
-    <h3 class="ui small header active title">
+    <div class="ui small header active title">
         <i class="dropdown icon"></i> {{'Overview'| translate }}
-    </h3>
+    </div>
     <div class="content">
 
         <div class="ui grid top attached segment">
@@ -77,26 +77,26 @@
     </div>
 
     <!-- GAMEPLAY -->
-    <h3 class="ui small header active title">
+    <div class="ui small header active title">
         <i class="dropdown icon"></i> {{'Gameplay'| translate}}
-    </h3>
+    </div>
     <div class="content">
         <span class="small text" translate ng-if="data.isLoadingGame">{{'Loading'| translate}}...</span>
         <game-details-relationships game="$ctrl.game" relationships="['mechanics', 'gameModes', 'graphics', 'engines', 'durations']"></game-details-relationships>
     </div>
 
     <!-- PLOT -->
-    <h3 class="ui small header active title">
+    <div class="ui small header active title">
         <i class="dropdown icon"></i> {{'Plot'| translate}}
-    </h3>
+    </div>
     <div class="content">
         <span class="small text" translate ng-if="data.isLoadingGame">{{'Loading'| translate}}...</span>
         <game-details-relationships game="$ctrl.game" relationships="['series', 'atmospheres', 'themes', 'characters', 'creatures', 'locations', 'periods', 'weapons',  'vehicles', 'sportTeams', 'organizations', 'soundtracks']"></game-details-relationships>
     </div>
 
-    <h3 class="ui small header active title">
+    <div class="ui small header active title">
         <i class="dropdown icon"></i> {{'Game Industry'| translate }}
-    </h3>
+    </div>
     <div class="content">
         <span class="small text" translate ng-if="data.isLoadingGame">{{'Loading'| translate}}...</span>
         <game-details-relationships game="$ctrl.game" relationships="['developerCompanies', 'publisherCompanies', 'developers', 'awards', 'reviews', 'contentClassifications', 'contentCharacteristics']"></game-details-relationships>

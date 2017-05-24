@@ -1,0 +1,11 @@
+.search{
+
+}
+.search__header{
+    @include font-sectionheader;
+}
+.search__input{
+    .tags{
+        box-shadow: none;
+    }
+}
