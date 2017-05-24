@@ -78,7 +78,7 @@ public class Environment {
             LOGGER.warn(LogMarker.INIT, "{} variable is not set in the environment. Defaulting to {}", PROJECT_STAGE, PROJECT_STAGE_PRODUCTION);
             tempEnvironment = PROJECT_STAGE_PRODUCTION;
         } else if (!tempEnvironment.equalsIgnoreCase(PROJECT_STAGE_DEVELOPMENT) && !tempEnvironment.equalsIgnoreCase(PROJECT_STAGE_PRODUCTION)) {
-            LOGGER.warn(LogMarker.INIT, "{} variable has not a valid value {}. Defaulting to {}", tempEnvironment, PROJECT_STAGE, PROJECT_STAGE_PRODUCTION);
+            LOGGER.warn(LogMarker.INIT, "{} variable has an invalid value {}. Defaulting to {}", PROJECT_STAGE, tempEnvironment, PROJECT_STAGE_PRODUCTION);
             tempEnvironment = PROJECT_STAGE_PRODUCTION;
         }
 
