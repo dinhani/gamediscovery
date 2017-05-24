@@ -22,7 +22,7 @@ rem It is generated from the Neo4J database
 SET GD_DATA_LUCENE=F:/gamediscovery/lucene
 
 rem Directory where game covers are stored
-SET GD_DATA_IMAGES=F:/gamediscovery/images/
+SET GD_DATA_IMAGES=F:/gamediscovery/images
 
 rem Database connections
 SET GD_NEO4J_CONN_REST=http://localhost:7474/db/data/
