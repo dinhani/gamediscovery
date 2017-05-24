@@ -72,14 +72,14 @@ public class Environment {
         // read fro env
         String tempEnvironment = System.getenv(PROJECT_STAGE);
 
-        // if not set, use development
-        // if set a invalid value, use development
+        // if not set, use production
+        // if set a invalid value, use production
         if (StringUtils.isBlank(tempEnvironment)) {
-            LOGGER.warn(LogMarker.INIT, "{} variable is not set in the environment. Defaulting to {}", PROJECT_STAGE, PROJECT_STAGE_DEVELOPMENT);
-            tempEnvironment = PROJECT_STAGE_DEVELOPMENT;
+            LOGGER.warn(LogMarker.INIT, "{} variable is not set in the environment. Defaulting to {}", PROJECT_STAGE, PROJECT_STAGE_PRODUCTION);
+            tempEnvironment = PROJECT_STAGE_PRODUCTION;
         } else if (!tempEnvironment.equalsIgnoreCase(PROJECT_STAGE_DEVELOPMENT) && !tempEnvironment.equalsIgnoreCase(PROJECT_STAGE_PRODUCTION)) {
-            LOGGER.warn(LogMarker.INIT, "{} variable has not a valid value {}. Defaulting to {}", tempEnvironment, PROJECT_STAGE, PROJECT_STAGE_DEVELOPMENT);
-            tempEnvironment = PROJECT_STAGE_DEVELOPMENT;
+            LOGGER.warn(LogMarker.INIT, "{} variable has not a valid value {}. Defaulting to {}", tempEnvironment, PROJECT_STAGE, PROJECT_STAGE_PRODUCTION);
+            tempEnvironment = PROJECT_STAGE_PRODUCTION;
         }
 
         // set project stage
