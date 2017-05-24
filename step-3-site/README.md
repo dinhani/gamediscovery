@@ -21,9 +21,3 @@ Generate the sitemap files with:
 ```
 scripts/lucene/generate_lucene.bat
 ```
-
-Generate the minified JS and CSS with:
-
-```
-mvn wro4j:run
-```
