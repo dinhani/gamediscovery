@@ -1,0 +1,21 @@
+.gamedetails{
+
+}
+.gamedetails__header{
+    // position
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    // font
+    @include font-sectionheader;
+    text-align: center;
+}
+.gamedetails__cover{
+    width: 100%;
+}
+.gamedetails__gameplay{
+    &:hover{
+        transform: scale(1.25, 1.25) !important;
+        transition: all linear 0.1s;
+    }
+}

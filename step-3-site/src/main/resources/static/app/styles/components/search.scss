@@ -3,6 +3,7 @@
 }
 .search__header{
     @include font-sectionheader;
+    margin-bottom: 1rem;
 }
 .search__input{
     .tags{

@@ -1,0 +1,15 @@
+.ui.button{
+    // size
+    width: 100%;
+
+    // font
+    text-transform: uppercase;
+
+    // color
+    background: $color-primary;
+    color:$color-white;
+
+    &:hover{
+        background: mix($color-primary, #000);
+    }
+}

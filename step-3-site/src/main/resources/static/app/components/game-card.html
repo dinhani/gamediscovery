@@ -1,19 +1,15 @@
-<a class="gamecard" href="/recommendations/{{$ctrl.game.uid}}"
-    ng-click="$ctrl.showGame({game: $ctrl.game})">
+<a class="gamecard ui card" ng-href="/recommendations/{{$ctrl.game.uid}}" ng-click="$ctrl.showGame({game: $ctrl.game})">
 
-    <div class="ui card clickable">
+    <!-- IMAGE -->
+    <div class="gamecard__image">
+        <img class="ui image" ng-src="{{$ctrl.game.imageFullPath}}" alt="{{$ctrl.game.name}}"
+            fallback-src="/app/images/default.png"/>
+    </div>
 
-        <!-- IMAGE -->
-        <div class="gamecard__image">
-            <img class="ui image" ng-src="{{$ctrl.game.imageFullPath}}" alt="{{$ctrl.game.name}}"
-                fallback-src="/app/images/default.png"/>
-        </div>
-
-        <!-- NAME -->
-        <div class="content">
-            <div class="gamecard__header">{{$ctrl.index}}. {{$ctrl.game.name}}</div>
-            <div class="gamecard__year" ng-if="$ctrl.game.releaseYears">{{$ctrl.game.releaseYears[0].name}}</div>
-            <div class="gamecard__year" ng-if="!$ctrl.game.releaseYears">-</div>
-        </div>
+    <!-- NAME -->
+    <div class="content">
+        <div class="gamecard__header">{{$ctrl.index}}. {{$ctrl.game.name}}</div>
+        <div class="gamecard__year" ng-if="$ctrl.game.releaseYears">{{$ctrl.game.releaseYears[0].name}}</div>
+        <div class="gamecard__year" ng-if="!$ctrl.game.releaseYears">-</div>
     </div>
 </a>
