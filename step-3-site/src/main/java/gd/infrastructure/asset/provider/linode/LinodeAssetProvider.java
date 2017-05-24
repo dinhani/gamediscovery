@@ -6,7 +6,7 @@ import gd.infrastructure.steriotype.GDService;
 @GDService
 public class LinodeAssetProvider implements AssetProvider {
 
-    private static final String URL = "http://192.155.82.172:8080/";
+    private static final String URL = "/images/";
 
     @Override
     public String generateUrl(String filename) {
