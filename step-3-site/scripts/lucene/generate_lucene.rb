@@ -22,7 +22,7 @@ java_import 'org.apache.lucene.store.SimpleFSDirectory'
 # ==============================================================================
 # CONSTANTS
 # ==============================================================================
-LUCENE_INDEX_FOLDER = "../../src/main/resources/lucene"
+LUCENE_INDEX_FOLDER = ENV['GD_DATA_LUCENE']
 
 # ==============================================================================
 # FUNCTIONS

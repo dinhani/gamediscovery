@@ -17,6 +17,9 @@ rem Directory where Neo4J is installed and will be used as database to gamedisco
 rem It is generated from the extracted PostgreSQL database data
 SET GD_DATA_NEO4J=F:/gamediscovery/neo4j
 
+rem Directory where Lucene index are stored
+SET GD_DATA_LUCENE=F:/gamediscovery/lucene
+
 rem Database connections
 SET GD_NEO4J_CONN_REST=http://localhost:7474/db/data/
 SET GD_NEO4J_CONN_BOLT=bolt://localhost:7687/

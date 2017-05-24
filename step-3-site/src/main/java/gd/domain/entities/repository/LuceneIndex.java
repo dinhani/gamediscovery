@@ -7,6 +7,8 @@ import gd.domain.entities.entity.industry.Game;
 import gd.domain.entities.entity.industry.Platform;
 import gd.domain.entities.factory.ConceptEntryFactory;
 import gd.infrastructure.di.DIService;
+import gd.infrastructure.enviroment.Environment;
+import gd.infrastructure.log.LogMarker;
 import gd.infrastructure.log.LogProducer;
 import gd.infrastructure.steriotype.GDService;
 import java.io.IOException;
@@ -36,6 +38,10 @@ import org.apache.lucene.search.SortField;
 @GDService
 public class LuceneIndex {
 
+    // ENV VARS
+    private static final String LUCENE_PATH = "GD_DATA_LUCENE";
+
+    // FIELDS
     private static final Sort BOOST_SORT = new Sort(new SortField("boost", SortField.Type.FLOAT, true));
     private static final Set<String> FIELDS_TO_LOAD = Sets.newHashSet("uid", "name", "alias", "image", "platforms", "category", "boost");
 
@@ -45,7 +51,7 @@ public class LuceneIndex {
     private QueryParser parser;
 
     @Autowired
-    private DIService di;
+    private Environment environment;
 
     @Autowired
     private gd.infrastructure.error.Error error;
@@ -59,8 +65,11 @@ public class LuceneIndex {
     public void init() {
         try {
             // read index
-            Path luceneInClasspath = Paths.get(DIService.getResource("classpath:lucene").getURI());
-            Directory index = new SimpleFSDirectory(luceneInClasspath, NoLockFactory.INSTANCE);
+            String luceneFolder = environment.readValue(LUCENE_PATH);
+            luceneFolder = StringUtils.isNotBlank(luceneFolder) ? luceneFolder : "lucene";
+            LOGGER.info(LogMarker.INIT, "Lucene folder | path={}", luceneFolder);
+
+            Directory index = new SimpleFSDirectory(Paths.get(luceneFolder), NoLockFactory.INSTANCE);
             IndexReader reader = DirectoryReader.open(index);
             searcher = new IndexSearcher(reader);
 
@@ -69,8 +78,7 @@ public class LuceneIndex {
 
             // build query parsers
             parser = new QueryParser("search", analyzer);
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             LOGGER.error("Error reading Lucene index | message={}", e.getMessage(), e);
             System.exit(2);
         }
@@ -115,7 +123,7 @@ public class LuceneIndex {
                 docs = searcher.search(luceneQuery, limit, BOOST_SORT).scoreDocs;
             }
 
-            // extract ids         
+            // extract ids
             Collection<ConceptEntry> entries = Lists.newArrayListWithExpectedSize(docs.length);
             for (int i = 0; i < docs.length; ++i) {
                 Document d = searcher.doc(docs[i].doc, FIELDS_TO_LOAD);

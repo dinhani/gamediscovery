@@ -8,6 +8,7 @@ import gd.infrastructure.steriotype.GDProducer;
 import java.io.File;
 import java.net.URISyntaxException;
 import javax.annotation.PostConstruct;
+import org.apache.commons.lang3.StringUtils;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
@@ -18,7 +19,6 @@ import org.neo4j.ogm.session.SessionFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 
@@ -48,11 +48,12 @@ public class Neo4JConnectionProducer {
 
     @Bean
     public GraphDatabaseService graph() {
-        String neo4jFilePath = environment.readValue(NEO4J_PATH);
-        LOGGER.trace(LogMarker.INIT, "Neo4J file path | path={}", neo4jFilePath);
+        String neo4jFolder = environment.readValue(NEO4J_PATH);
+        neo4jFolder = StringUtils.isNotBlank(neo4jFolder) ? neo4jFolder : "database";
+        LOGGER.info(LogMarker.INIT, "Neo4J folder | path={}", neo4jFolder);
 
         GraphDatabaseService graph = new GraphDatabaseFactory()
-                .newEmbeddedDatabaseBuilder(new File(neo4jFilePath))
+                .newEmbeddedDatabaseBuilder(new File(neo4jFolder))
                 .setConfig(GraphDatabaseSettings.pagecache_memory, "64M")
                 .setConfig(GraphDatabaseSettings.allow_store_upgrade, "true")
                 .setConfig(GraphDatabaseSettings.keep_logical_logs, "false")

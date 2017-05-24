@@ -14,8 +14,8 @@ jar 'org.apache.lucene:lucene-core', '5.5.0'
 jar 'org.apache.lucene:lucene-analyzers-common', '5.5.0'
 
 # neo4j
-jar 'org.neo4j:neo4j', '3.1.2'
-jar 'org.neo4j:neo4j-ogm-embedded-driver', '2.1.1'
+jar 'org.neo4j:neo4j', '3.2.0'
+jar 'org.neo4j:neo4j-ogm-embedded-driver', '2.1.2'
 jar 'org.neo4j.driver:neo4j-java-driver', '1.2.0'
 
 # nlp
