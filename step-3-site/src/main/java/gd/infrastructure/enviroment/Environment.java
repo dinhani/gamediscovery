@@ -166,27 +166,7 @@ public class Environment {
     // =========================================================================
     // GETTERS
     // =========================================================================
-    /**
-     * Get the current application URL base. It is different if running is
-     * production or development.
-     *
-     * @return The application URL.
-     */
-    public String getApplicationURL() {
-        if (isDevelopment()) {
-            return "http://localhost:3001";
-        } else {
-            return "http://www.gamediscovery.net";
-        }
-    }
-
-    /**
-     * Get the current application build version. The version is generated with
-     * Maven using the build date.
-     *
-     * @return The application version.
-     */
-    public String getApplicationVersion() {
-        return currentVersion;
+    public String getCurrentDir() {
+        return System.getProperty("user.dir");
     }
 }

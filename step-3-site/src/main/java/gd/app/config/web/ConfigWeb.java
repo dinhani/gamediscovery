@@ -31,8 +31,11 @@ public class ConfigWeb extends WebMvcConfigurerAdapter {
         super.addResourceHandlers(registry);
 
         // read folder from where images will be served
-        String imagesFolder = environment.readValue("GD_DATA_IMAGES");        
-        imagesFolder = (StringUtils.isNotBlank(imagesFolder) ? imagesFolder : "images") + "/";
+        String imagesFolder = environment.readValue("GD_DATA_IMAGES");
+        if(StringUtils.isBlank(imagesFolder)){
+            imagesFolder = environment.getCurrentDir() + "/images";
+        }
+        imagesFolder = "file:///" + imagesFolder + "/";                
         LOGGER.info(LogMarker.INIT, "Images folder | path={}", imagesFolder);
 
         // configure urls for assets and images
