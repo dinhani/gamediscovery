@@ -50,7 +50,7 @@ public class AppController {
         }
 
         // render
-        return "forward:/index.html";
+        return "forward:/dist/index.html";
     }
 
     // =========================================================================

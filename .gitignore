@@ -43,5 +43,4 @@ Jarfile.lock
 **/db.cache-*
 
 # PROJECT SPECIFIC
-!step-1-data-download/_shared/lib/*.jar
-step-3-site/src/main/webapp/app/assets/lib
+step-3-site/src/main/resources/static/dist

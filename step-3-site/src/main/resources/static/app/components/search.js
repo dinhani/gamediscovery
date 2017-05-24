@@ -73,9 +73,9 @@ app.controller('SearchController', function ($scope, $location, $q,
         previousGameSearches.push(request);
 
         request
-            .success(function (data) {
+            .then(function (response) {
                 // display games
-                let gameSearch = JSOG.decode(data);
+                let gameSearch = JSOG.decode(response.data);
                 if (page === 1) {
                     $scope.$ctrl.games = gameSearch.results;
                 } else {

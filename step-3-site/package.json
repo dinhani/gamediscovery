@@ -1,0 +1,28 @@
+{
+  "name": "gamediscovery-site",
+  "version": "1.0.0",
+  "repository": "https://github.com/dinhani/gamediscovery",
+  "author": "Renato Dinhani",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-cookies": "^1.6.4",
+    "angular-hotkeys": "^1.7.0",
+    "angular-img-fallback": "^0.2.0",
+    "angular-translate": "^2.15.1",
+    "angular-translate-storage-cookie": "^2.15.1",
+    "files-exist": "^1.0.2",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-debug": "^3.1.0",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-merge": "^0.1.1",
+    "jquery": "^3.2.1",
+    "jsog": "^1.0.7",
+    "ng-tags-input": "^3.2.0",
+    "semantic-ui": "^2.2.10",
+    "underscore": "^1.8.3",
+    "underscore.string": "^3.3.4"
+  }
+}
