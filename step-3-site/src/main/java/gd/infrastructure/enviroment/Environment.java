@@ -30,7 +30,6 @@ public class Environment {
     // CONSTANTS
     private static final String PROJECT_STAGE_DEVELOPMENT = "development";
     private static final String PROJECT_STAGE_PRODUCTION = "production";
-    private static final String SCRIPTS_FOLDER = "./scripts/prerender/";
 
     // =========================================================================
     // ENV VARS
@@ -93,47 +92,6 @@ public class Environment {
             currentVersion = manifest.getMainAttributes().getValue("Build-Time");
         } catch (IOException ex) {
             currentVersion = "";
-        }
-    }
-
-    // =========================================================================
-    // EXECUTION
-    // =========================================================================
-    public Optional<String> executeScript(String command, Resource script, String args) {
-        // validate
-        Preconditions.checkArgument(StringUtils.isNotBlank(command), ErrorMessages.NOT_BLANK, "command");
-        Preconditions.checkArgument(script != null, ErrorMessages.NOT_NULL, "script");
-
-        // execute
-        try {
-            // get the script path
-            String scriptPath = scripts.get(script.getFilename());
-
-            // create the script in the filesystem if not already created
-            if (scriptPath == null) {
-                // read and write script to filesystem
-                scriptPath = script.getFilename();
-                String scriptContent = IOUtils.toString(script.getInputStream());
-                FileUtils.writeStringToFile(new File(SCRIPTS_FOLDER + scriptPath), scriptContent);
-
-                // save reference
-                scripts.put(script.getFilename(), scriptPath);
-            }
-
-            // execute script
-            command += " " + SCRIPTS_FOLDER + scriptPath + " " + args;
-            LOGGER.info("Executing command | command=\"{}\"", command);
-            Process process = Runtime.getRuntime().exec(command);
-
-            // read output
-            String scriptOutput = IOUtils.toString(process.getInputStream());
-            process.waitFor();
-
-            // return output
-            return Optional.of(scriptOutput);
-        } catch (IOException | InterruptedException e) {
-            LOGGER.error("Error executing script | message={}", e.getMessage(), e);
-            return Optional.empty();
         }
     }
 
