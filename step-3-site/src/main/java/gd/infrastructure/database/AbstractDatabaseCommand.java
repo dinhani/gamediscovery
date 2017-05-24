@@ -1,6 +1,5 @@
 package gd.infrastructure.database;
 
-import gd.infrastructure.database.provider.neo4j.Neo4JFilterFactory;
 import org.neo4j.ogm.cypher.query.SortOrder;
 import org.neo4j.ogm.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,6 @@ public abstract class AbstractDatabaseCommand {
     // =========================================================================
     @Autowired
     protected Session neo4jSession;
-
-    @Autowired
-    protected Neo4JFilterFactory neo4jFilter;
 
     protected SortOrder sorting = new SortOrder().add(SortOrder.Direction.ASC, "name");
 

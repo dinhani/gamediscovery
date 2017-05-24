@@ -2,11 +2,11 @@ package gd.app.graphgenerator.task;
 
 import com.google.common.collect.Maps;
 import gd.domain.entities.Node;
-import gd.domain.services.Cache;
-import gd.domain.services.JDBC;
 import gd.domain.entities.entity.ConceptEntry;
 import gd.domain.entities.entity.RelationshipRelevanceBoost;
 import gd.domain.entities.entity.TreeSetWithAttributes;
+import gd.domain.services.Cache;
+import gd.domain.services.JDBC;
 import gd.infrastructure.di.DIService;
 import gd.infrastructure.steriotype.GDTask;
 import java.lang.reflect.Field;
@@ -17,8 +17,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import javassist.Modifier;
 import javax.annotation.PostConstruct;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.codehaus.plexus.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @GDTask

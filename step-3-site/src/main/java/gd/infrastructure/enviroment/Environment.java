@@ -1,24 +1,15 @@
 package gd.infrastructure.enviroment;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Maps;
 import gd.infrastructure.di.DIService;
-import gd.infrastructure.error.ErrorMessages;
 import gd.infrastructure.log.LogMarker;
 import gd.infrastructure.log.LogProducer;
 import gd.infrastructure.steriotype.GDService;
-import java.io.File;
 import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
 import java.util.jar.Manifest;
 import javax.annotation.PostConstruct;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 @GDService
@@ -39,9 +30,7 @@ public class Environment {
     // =========================================================================
     // DATA
     // =========================================================================
-    private String currentEnviroment;
-    private String currentVersion;
-    private final Map<String, String> scripts = Maps.newHashMap();
+    private String currentEnviroment;    
 
     // =========================================================================
     // SERVICES
@@ -58,8 +47,7 @@ public class Environment {
     @PostConstruct
     public void init() {
         LOGGER.info(LogMarker.INIT, "Initializing Environment");
-        initProjectStage();
-        initProjectVersion();
+        initProjectStage();        
     }
 
     private void initProjectStage() {
@@ -84,15 +72,6 @@ public class Environment {
         // set project stage
         currentEnviroment = tempEnvironment;
         LOGGER.trace(LogMarker.INIT, "Setting project stage | stage={}", currentEnviroment);
-    }
-
-    private void initProjectVersion() {
-        try {
-            Manifest manifest = new Manifest(resource.getResource("/META-INF/MANIFEST.MF").getInputStream());
-            currentVersion = manifest.getMainAttributes().getValue("Build-Time");
-        } catch (IOException ex) {
-            currentVersion = "";
-        }
     }
 
     // =========================================================================
