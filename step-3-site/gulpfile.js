@@ -61,10 +61,7 @@ gulp.task('js', function(){
         'node_modules/jquery/dist/jquery.min.js',
         'node_modules/semantic-ui/dist/semantic.min.js',
         // angular
-        'node_modules/angular/angular.min.js',
-        'node_modules/angular-cookies/angular-cookies.min.js',
-        'node_modules/angular-translate/dist/angular-translate.min.js',
-        'node_modules/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js',
+        'node_modules/angular/angular.js',
         'node_modules/angular-img-fallback/angular.dcb-img-fallback.min.js',
         'node_modules/ng-tags-input/build/ng-tags-input.min.js',
         'node_modules/angular-hotkeys/build/hotkeys.min.js'

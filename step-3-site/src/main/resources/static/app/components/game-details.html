@@ -1,103 +1,93 @@
-<!-- CLOSE -->
-<i class="big close icon"></i>
-
 <div class="gamedetails">
+    <!-- =================================================================== -->
     <!-- HEADER -->
-    <div class="gamedetails__header">
-        <span ng-show="$ctrl.index">{{$ctrl.index + 1}}.</span> {{$ctrl.game.name}}
-    </div>
+    <!-- =================================================================== -->
+    <div class="gamedetails__header">{{$ctrl.game.name}}</div>
 
+    <!-- =================================================================== -->
+    <!-- CONTENT -->
+    <!-- =================================================================== -->
+    <div class="ui styled fluid accordion">
 
-    <!-- GAME INFO -->
-    <div id="game" class="ui styled fluid accordion">
-
+        <!-- =============================================================== -->
         <!-- OVERVIEW -->
-        <div class="ui small header active title">
-            <i class="dropdown icon"></i> {{'Overview'| translate }}
+        <!-- =============================================================== -->
+        <div class="gamedetails__sectionheader ui active title">
+            <i class="dropdown icon"></i> Overview
         </div>
-        <div class="content">
+        <div class="gamedetails__sectioncontent content">
 
-            <div class="ui grid top attached segment">
-                <!-- COVER -->
-                <div class="
-                        four wide widescreen
-                        four wide computer
-                        sixteen wide mobile
-                        column">
-                    <img class="gamedetails__cover" ng-src="{{$ctrl.game.imageFullPath}}" alt="{{$ctrl.game.name}} cover" fallback-src="/app/images/default.png" ng-if="$ctrl.game !== null" />
+            <div class="ui grid top aligned top attached stackable segment">
+                <!-- ======================================================= -->
+                <!-- LEFT SIDE -->
+                <!-- ======================================================= -->
+                <div class="four wide column">
+                    <img class="gamedetails__cover ui rounded bordered image" ng-src="{{$ctrl.game.imageFullPath}}" alt="{{$ctrl.game.name}} cover" fallback-src="/app/images/default.png" ng-if="$ctrl.game !== null" />
                 </div>
 
-                <div class="
-                        twelve wide widescreen
-                        twelve wide computer
-                        sixteen wide mobile
-                        column">
+                <!-- ======================================================= -->
+                <!-- RIGHT SIDE -->
+                <!-- ======================================================= -->
+                <div class="twelve wide column">
 
+                    <!-- =================================================== -->
                     <!-- IMAGES -->
-                    <a class="ui three column doubling grid" ng-href="{{$ctrl.gameLinks.imagesLink}}" target="_blank">
-                        <div class="column" ng-repeat="image in $ctrl.gameLinks.images| limitTo:12">
-                            <img class="gamedetails__gameplay" class="ui bordered image" ng-src="{{image}}" alt="{{$ctrl.game.name}} gameplay" />
+                    <!-- =================================================== -->
+                    <a class="gamedetails__images ui four column doubling grid" ng-href="{{$ctrl.gameLinks.imagesLink}}" target="_blank">
+                        <div class="column" ng-repeat="image in $ctrl.gameLinks.images| limitTo:8">
+                            <img class="gamedetails__image ui bordered rounded image" ng-src="{{image}}" alt="{{$ctrl.game.name}} gameplay" />
                         </div>
                     </a>
 
+                    <!-- =================================================== -->
                     <!-- LINKS -->
-                    <div id="game-links" class="ui horizontal list" style="margin-top: 1rem;">
-                        <div class="small text item">
-                            <a class="link" ng-href="{{$ctrl.gameLinks.imagesLink}}" target="_blank"style="width: 100%;">
-                                <i class="icon picture"></i><span translate>Google Images</span></a>
-                        </div>
-                        <div class="small text item">
-                            <a class="link" ng-href="{{$ctrl.gameLinks.youtubeLink}}" target="_blank" style="width: 100%;">
-                                <i class="icon youtube"></i>Youtube
-                            </a>
-                        </div>
-                        <div class="small text item">
-                            <a class="link" ng-href="{{$ctrl.gameLinks.hltbLink}}" target="_blank" style="width: 100%;">
-                                <i class="icon clock"></i>How Long to Beat
-                            </a>
-                        </div>
+                    <!-- =================================================== -->
+                    <div class="gamedetails__links ui horizontal list">
+                        <a class="item link" ng-href="{{$ctrl.gameLinks.imagesLink}}" target="_blank">
+                            <i class="icon picture"></i><span>Google Images</span></a>
+                        <a class="item link" ng-href="{{$ctrl.gameLinks.youtubeLink}}" target="_blank">
+                            <i class="icon youtube"></i>Youtube
+                        </a>
+                        <a class="item link" ng-href="{{$ctrl.gameLinks.hltbLink}}" target="_blank">
+                            <i class="icon clock"></i>How Long to Beat
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <!-- SUMMARY -->
-            <div class="ui attached segment" ng-if="$ctrl.game.summary">
-                <div id="game-summary" style="max-height: 5rem; overflow: hidden; font-size: 1.1rem; line-height: 1.5;">
-                    {{$ctrl.game.summary}}
-                </div>
-                <a href="#" ng-click="showMoreSummary()" ng-if="$ctrl.gameShowMore" class="small text">
-                    <br/>
-                    <span translate>Show more</span>
-                </a>
-            </div>
-
-            <!-- GENERAL INFORMATION -->
+            <!-- =========================================================== -->
+            <!-- GENERAL INFO -->
+            <!-- =========================================================== -->
             <game-details-relationships game="$ctrl.game" relationships="['platforms', 'genres', 'releaseYears']" bottom-attached="true"></game-details-relationships>
         </div>
 
+        <!-- =============================================================== -->
         <!-- GAMEPLAY -->
-        <div class="ui small header active title">
-            <i class="dropdown icon"></i> {{'Gameplay'| translate}}
+        <!-- =============================================================== -->
+        <div class="gamedetails__sectionheader ui active title">
+            <i class="dropdown icon"></i> Gameplay
         </div>
-        <div class="content">
-            <span class="small text" translate ng-if="data.isLoadingGame">{{'Loading'| translate}}...</span>
+        <div class="gamedetails__sectioncontent content">
             <game-details-relationships game="$ctrl.game" relationships="['mechanics', 'gameModes', 'graphics', 'engines', 'durations']"></game-details-relationships>
         </div>
 
+        <!-- =============================================================== -->
         <!-- PLOT -->
-        <div class="ui small header active title">
-            <i class="dropdown icon"></i> {{'Plot'| translate}}
+        <!-- =============================================================== -->
+        <div class="gamedetails__sectionheader ui active title">
+            <i class="dropdown icon"></i> Plot
         </div>
-        <div class="content">
-            <span class="small text" translate ng-if="data.isLoadingGame">{{'Loading'| translate}}...</span>
+        <div class="gamedetails__sectioncontent content">
             <game-details-relationships game="$ctrl.game" relationships="['series', 'atmospheres', 'themes', 'characters', 'creatures', 'locations', 'periods', 'weapons',  'vehicles', 'sportTeams', 'organizations', 'soundtracks']"></game-details-relationships>
         </div>
 
-        <div class="ui small header active title">
-            <i class="dropdown icon"></i> {{'Game Industry'| translate }}
+        <!-- =============================================================== -->
+        <!-- GAME INDUSTRY -->
+        <!-- =============================================================== -->
+        <div class="gamedetails__sectionheader ui active title">
+            <i class="dropdown icon"></i> Game Industry
         </div>
-        <div class="content">
-            <span class="small text" translate ng-if="data.isLoadingGame">{{'Loading'| translate}}...</span>
+        <div class="gamedetails__sectioncontent content">
             <game-details-relationships game="$ctrl.game" relationships="['developerCompanies', 'publisherCompanies', 'developers', 'awards', 'reviews', 'contentClassifications', 'contentCharacteristics']"></game-details-relationships>
         </div>
     </div>

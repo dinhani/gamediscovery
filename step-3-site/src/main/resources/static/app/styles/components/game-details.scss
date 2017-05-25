@@ -1,21 +1,37 @@
-.gamedetails{
-
-}
+/* ========================================================================== */
+/* HEADER */
+/* ========================================================================== */
 .gamedetails__header{
     // position
     padding-top: 1rem;
     padding-bottom: 1rem;
 
     // font
-    @include font-sectionheader;
+    @include font-panelheader;
     text-align: center;
 }
+/* ========================================================================== */
+/* CONTENT */
+/* ========================================================================== */
+.gamedetails__sectionheader {
+    @include font-sectionheader;
+}
+.gamedetails__sectioncontent {
+    padding-bottom: 0.5rem !important;
+}
+
+/* ========================================================================== */
+/* IMAGES */
+/* ========================================================================== */
 .gamedetails__cover{
     width: 100%;
 }
-.gamedetails__gameplay{
+.gamedetails__image{
     &:hover{
         transform: scale(1.25, 1.25) !important;
         transition: all linear 0.1s;
     }
+}
+.gamedetails__links{
+    margin-top: 1rem !important;
 }

@@ -1,7 +1,5 @@
 var app = angular.module('app', [
-    'ngCookies',
     'ngTagsInput',
-    'pascalprecht.translate',
     'dcbImgFallback',
     'cfp.hotkeys'
 ]);

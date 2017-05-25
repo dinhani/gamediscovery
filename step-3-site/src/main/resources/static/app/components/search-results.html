@@ -1,30 +1,27 @@
 <div class="searchresults">
     <!-- HEADER -->
     <div class="searchresults__header" >
-        {{$ctrl.gamesTotalResults}} <span translate>games found
+        {{$ctrl.gamesTotalResults}} games found
     </div>
 
     <!-- LOADING -->
-    <div class="big text" ng-show="$ctrl.searching">
-        <br/>
-        <span translate>Loading</span>...
-        <br/><br/><br/>
+    <div class="searchresults__loader" ng-show="$ctrl.searching">
+        <div class="ui text loader">Loading...</div>
     </div>
 
     <!-- GAMES -->
-    <ol class="ui four column doubling grid">
+    <ol class="searchresults__games ui four column doubling grid">
         <li class="column" ng-repeat="game in $ctrl.games track by $index">
             <game-card game="game.game" index="{{$index + 1}}" show-game="showGame(game)"></game-card>
         </li>
     </ol>
 
     <!-- LOAD MORE -->
-    <div class="ui one column grid" ng-show="$ctrl.games && $ctrl.games.length < $ctrl.gamesTotalResults">
+    <div class="searchresults__loadmore ui one column grid" ng-show="$ctrl.games && $ctrl.games.length < $ctrl.gamesTotalResults">
 
         <!-- BUTTON -->
         <div class="column">
-            <a ng-click="loadMoreGames()" class="ui big {{$ctrl.searching ? 'disable' : ''}} button"
-                translate>Load more games</a>
+            <a ng-click="loadMoreGames()" class="ui big {{$ctrl.searching ? 'disable' : ''}} button">Load more games</a>
         </div>
     </div>
 

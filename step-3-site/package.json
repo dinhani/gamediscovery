@@ -6,11 +6,8 @@
   "private": true,
   "dependencies": {
     "angular": "^1.6.4",
-    "angular-cookies": "^1.6.4",
     "angular-hotkeys": "^1.7.0",
     "angular-img-fallback": "^0.2.0",
-    "angular-translate": "^2.15.1",
-    "angular-translate-storage-cookie": "^2.15.1",
     "babel-preset-es2015": "^6.24.1",
     "browser-sync": "^2.18.12",
     "files-exist": "^1.0.2",

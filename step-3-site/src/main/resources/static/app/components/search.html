@@ -1,12 +1,12 @@
 <div class="search" ng-init="init()">
 
     <!-- HEADER -->
-    <div class="search__header" translate>
-        Game search
+    <div class="search__header">
+        Search
     </div>
 
     <!-- INPUT -->
-    <tags-input class="search__input" ng-model="$ctrl.filters" key-property="uid" display-property="name" placeholder="{{'Add filter' | translate}}"
+    <tags-input class="search__input" ng-model="$ctrl.filters" key-property="uid" display-property="name" placeholder="Add filter"
         add-from-autocomplete-only="true" replace-spaces-with-dashes="false"
         on-tag-added="filtersChanged()" on-tag-removed="filtersChanged()">
         <auto-complete source="searchFilters($query)" debounce-delay="200" min-length="1" template="tag-template"></auto-complete>
@@ -14,8 +14,7 @@
 
     <!-- EXAMPLES -->
     <div class="search__examples ui horizontal list">
-        <div class="item"><span translate>e.g.</span>:</div>
-        <div class="item"><a class="link" href="/recommendations/game-the-witcher-3-wild-hunt"      ng-click="addFilterFromExample({uid: 'game-the-witcher-3-wild-hunt', name: 'The Witcher 3: Wild Hunt'}, $event)">the witcher 3</a></div>
+        <div class="item">examples:</div>
         <div class="item"><a class="link" href="/recommendations/platform-playstation-4"            ng-click="addFilterFromExample({uid: 'platform-playstation-4', name: 'PlayStation  4'}, $event)">playstation 4</a></div>
         <div class="item"><a class="link" href="/recommendations/gamemode-single-player"            ng-click="addFilterFromExample({uid: 'gamemode-single-player', name: 'Single Player'}, $event)">single player</a></div>
         <div class="item"><a class="link" href="/recommendations/genre-open-world"                  ng-click="addFilterFromExample({uid: 'genre-open-world', name: 'Open World'}, $event)">open world</a></div>
