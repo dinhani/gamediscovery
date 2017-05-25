@@ -18,29 +18,24 @@ gulp.task('css', ['css-fonts'], function(){
     // APP
     let appSass = gulp.src(
         [
-            'src/main/resources/static/app/styles/**/*.scss'
+            'src/main/resources/static/app/styles/base/*.scss',
+            'src/main/resources/static/app/styles/layout/*.scss',
+            'src/main/resources/static/app/styles/components/*.scss'
         ])
         .pipe($.concat('gamediscovery-sass.scss'))
         .pipe($.sass().on('error', $.sass.logError))
         .pipe($.concat('gamediscovery-sass.css'))
 
-    let appCss = gulp.src(
-        [
-            'src/main/resources/static/app/styles/**/*.css'
-        ])
-        .pipe($.concat('gamediscovery.scss'))
-        .pipe($.concat('gamediscovery-css.css'))
-
     // MERGE
-    return $.merge(libs, appSass, appCss)
+    return $.merge(libs, appSass)
         // minify
         .pipe($.concat('gamediscovery.css'))
         .pipe($.cleanCss())
         .pipe(gulp.dest('src/main/resources/static/dist'))
         .pipe(gulp.dest('target/classes/static/dist'))
         // gzip
-        // .pipe($.gzip({ gzipOptions: { level: 9 } }))
-        // .pipe(gulp.dest('src/main/resources/static/dist'))
+        .pipe($.gzip({ gzipOptions: { level: 9 } }))
+        .pipe(gulp.dest('src/main/resources/static/dist'))
 })
 
 gulp.task('css-fonts', function(){
@@ -82,8 +77,8 @@ gulp.task('js', function(){
         .pipe(gulp.dest('src/main/resources/static/dist'))
         .pipe(gulp.dest('target/classes/static/dist'))
         // gzip
-        // .pipe($.gzip({ gzipOptions: { level: 9 } }))
-        // .pipe(gulp.dest('src/main/resources/static/dist'))
+        .pipe($.gzip({ gzipOptions: { level: 9 } }))
+        .pipe(gulp.dest('src/main/resources/static/dist'))
 })
 
 // =============================================================================
