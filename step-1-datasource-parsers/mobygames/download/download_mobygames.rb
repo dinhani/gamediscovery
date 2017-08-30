@@ -16,16 +16,16 @@ executor = Executor.new
 executor.threads(10)
 
 executor.log_interval = 10
-executor.reader = Reader.new("MATCH (n:Game) RETURN DISTINCT n.name ORDER BY n.name")
+executor.reader = Reader.new(95435)
 executor.saver = ZipSaver.new(options[:output])
 
 processor = DownloadProcessor.new(executor.saver.zipper)
-def processor.url(name)
-  id = ID::parse(name)
-  "http://www.mobygames.com/game/#{id}"
+def processor.url(id)
+  id = id.to_s
+  "http://www.mobygames.com/game/0#{id}"
 end
-def processor.filename(name)
-  id = ID::parse(name)
+def processor.filename(id)
+  id = id.to_s
   "#{id}.html"
 end
 executor.processor = processor
