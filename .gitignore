@@ -47,4 +47,4 @@ Jarfile.lock
 .vagrant
 
 # PROJECT SPECIFIC
-step-3-site/src/main/resources/static/dist
+workspace/3-site/src/main/resources/static/dist
