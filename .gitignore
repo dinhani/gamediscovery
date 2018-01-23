@@ -43,5 +43,8 @@ Jarfile.lock
 # PENTAHO FILES
 **/db.cache-*
 
+# VAGRANT FILES
+.vagrant
+
 # PROJECT SPECIFIC
 step-3-site/src/main/resources/static/dist
