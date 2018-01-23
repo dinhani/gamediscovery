@@ -15,5 +15,5 @@ Vagrant.configure("2") do |config|
     # ============================================================================
     # PROVISIONING
     # ============================================================================
-    config.vm.provision "shell", path: "provision.sh"
+    config.vm.provision "shell", path: "provisioning.sh"
 end
