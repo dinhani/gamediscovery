@@ -8,10 +8,11 @@ Vagrant.configure("2") do |config|
         v.gui = false
         v.memory = 2048
     end
+
     # ==========================================================================
     # FOLDERS
     # ==========================================================================
-    config.vm.synced_folder "workspace/server", "/home/vagrant/workspace", create: true
+    config.vm.synced_folder "workspace", "/home/vagrant/workspace", create: true
 
     # ==========================================================================
     # HARDWARE
