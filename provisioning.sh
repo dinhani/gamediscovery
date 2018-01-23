@@ -63,7 +63,7 @@ echo ""
 echo "========================================================================="
 echo "Installing Gems and JARs"
 echo "========================================================================="
-sudo jgem install bundler
+jgem install bundler
 
 cd workspace
 bundle install
