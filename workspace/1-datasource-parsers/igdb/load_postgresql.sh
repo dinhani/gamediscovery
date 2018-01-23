@@ -1,0 +1,1 @@
+psql --set=csv_characters=$GD_DATA_PARSED/igdb/characters.csv --set=csv_games=$GD_DATA_PARSED/igdb/games_base.csv --set=csv_relationships=$GD_DATA_PARSED/igdb/games_relationships.csv --file=load_postgresql.sql
