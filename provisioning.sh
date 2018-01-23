@@ -28,10 +28,10 @@ sudo apt-get --assume-yes install mcedit
 sudo apt-get --assume-yes install htop
 sudo apt-get --assume-yes install tree
 
-# echo ""
-# echo "========================================================================="
-# echo "Installing Java"
-# echo "========================================================================="
+echo ""
+echo "========================================================================="
+echo "Installing Java"
+echo "========================================================================="
 echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
 sudo apt-get --assume-yes install oracle-java8-installer
 

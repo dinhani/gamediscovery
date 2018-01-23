@@ -13,6 +13,7 @@ Vagrant.configure("2") do |config|
     # FOLDERS
     # ==========================================================================
     config.vm.synced_folder "workspace", "/home/vagrant/workspace", create: true
+    config.vm.synced_folder "F:/gamediscovery", "/home/vagrant/data", create: true
 
     # ==========================================================================
     # HARDWARE
