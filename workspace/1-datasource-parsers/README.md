@@ -1,4 +1,4 @@
-# step-1-datasource-parsers
+# 1-datasource-parsers
 
 Each folder contains all the scripts necessary to download, parse and load data into PostgreSQL for a datasource.
 
