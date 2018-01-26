@@ -1,9 +1,5 @@
 BEGIN {
-    # define separator
-    OFS="\t"
-
-    # print header
-    print "source", "type", "target"
+    printHeader()
 }
 
 {
