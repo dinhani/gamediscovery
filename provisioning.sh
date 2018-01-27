@@ -33,6 +33,7 @@ echo "========================================================================="
 sudo apt-get --assume-yes install mcedit
 sudo apt-get --assume-yes install htop
 sudo apt-get --assume-yes install tree
+sudo apt-get --assume-yes install parallel
 
 echo ""
 echo "========================================================================="
@@ -61,6 +62,12 @@ echo "========================================================================="
 sudo apt-get --assume-yes install postgresql-9.6
 sudo -u postgres psql --username=postgres --dbname=postgres --command="ALTER USER postgres WITH PASSWORD '123';"
 sudo -u postgres psql --username=postgres --dbname=postgres --command="CREATE DATABASE gamediscovery ENCODING 'utf-8' LC_CTYPE 'en_US.utf8' LC_COLLATE 'en_US.utf8' TEMPLATE template0;"
+
+echo ""
+echo "========================================================================="
+echo "Installing Perl"
+echo "========================================================================="
+sudo apt-get --assume-yes install perl
 
 echo ""
 echo "========================================================================="
