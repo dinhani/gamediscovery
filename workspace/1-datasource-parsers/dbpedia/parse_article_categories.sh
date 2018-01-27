@@ -1,2 +1,3 @@
 # 20.200.000 lines
-gawk -f ../_shared/functions.awk -f parse_article_categories.awk $GD_DATA_RAW/dbpedia_article_categories.ttl > $GD_DATA_PARSED/dbpedia/article_categories.tsv
+echo -e "source\tcategory\ttarget" > $GD_DATA_PARSED/dbpedia/article_categories.tsv
+perl -n parse_article_categories.pl < $GD_DATA_RAW/dbpedia_article_categories.ttl >> $GD_DATA_PARSED/dbpedia/article_categories.tsv

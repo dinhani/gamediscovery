@@ -18,7 +18,7 @@ if (!$capture){
 my $targetId = lc($capture);
 
 # parse source (if source changed)
-($capture) = $source =~ /.*Category:(.+)>/;
+($capture) = $source =~ /.*resource\/(.+)>/;
 my $sourceId = lc($capture);
 
 # output
