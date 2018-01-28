@@ -3,6 +3,8 @@
 # ==============================================================================
 use strict;
 use warnings;
+use Switch;
+
 require "../_shared/functions.pl";
 
 # ==============================================================================
@@ -15,25 +17,32 @@ while(<>){
     # ==========================================================================
     # SOURCE
     # ==========================================================================
-    # entity
-    (my $capture) = $source =~ /.*entity\/(.+)>/;
-    if(!$capture){
+    my $sourceId;
+    if($source =~ /.*entity\/(.+)>/){
+        $sourceId = $1;
+    } else {
         next;
     }
-    my $sourceId = $capture;
 
     # ==========================================================================
     # TYPE
     # ==========================================================================
     my $typeId;
 
-    # name
-    if ($type eq "<http://schema.org/name>"){
-        $type = "name";
-    # property
-    } elsif ($type =~ /.*direct\/(.+)>/){
-        $typeId = $1;
-    } else{
+    # discard
+    switch ($type) {
+        case "<http://www.w3.org/2000/01/rdf-schema#label>" { last; }
+        case "<http://www.w3.org/2004/02/skos/core#prefLabel>" { last; }
+        case "<http://www.w3.org/2004/02/skos/core#altLabel>" { last; }
+        case "<http://schema.org/name>" { $typeId = "name"; }
+        case "<http://schema.org/description>" { $typeId = "description"; }
+        else {
+            if( $type =~ /.*direct\/(.+)>/){
+                $typeId = $1;
+            }
+        }
+    }
+    if (!$typeId){
         next;
     }
 
@@ -42,19 +51,32 @@ while(<>){
     # ==========================================================================
     my $targetId;
 
-    # entity
-    ($capture) = $target =~ /.*entity\/(.+)>/;
-    if($capture){
-        $targetId = $capture;
+    # name
+    switch ($typeId) {
+        case "name" {
+            if($target =~ /\"(.+)\"\@en \./){
+                $targetId = $1;
+            }
+        }
+        case "description" {
+            if($target =~ /\"(.+)\"\@en \./){
+                $targetId = $1;
+            }
+        }
+        else {
+            # entity
+            if ($target =~ /.*entity\/(.+)>/){
+               $targetId = $1;
+            }
+        }
     }
 
-    # target not found
-    if(!$capture){
+    if(!$targetId){
         next;
     }
 
     # ==========================================================================
     # OUTPUT
     # ==========================================================================
-    #print "$sourceId\t$typeId\t$targetId\n"
+    print "$sourceId\t$typeId\t$targetId\n"
 }
