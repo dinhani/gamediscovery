@@ -13,27 +13,48 @@ while(<>){
     (my $source, my $type, my $target) = split(" ", $_, 3);
 
     # ==========================================================================
-    # TARGET
+    # SOURCE
     # ==========================================================================
-    my $targetId;
-    if ($target =~ /.*Category:(.+)>/){
-        $targetId = id($1);
-    } else {
+    # entity
+    (my $capture) = $source =~ /.*entity\/(.+)>/;
+    if(!$capture){
+        next;
+    }
+    my $sourceId = $capture;
+
+    # ==========================================================================
+    # TYPE
+    # ==========================================================================
+    my $typeId;
+
+    # name
+    if ($type eq "<http://schema.org/name>"){
+        $type = "name";
+    # property
+    } elsif ($type =~ /.*direct\/(.+)>/){
+        $typeId = $1;
+    } else{
         next;
     }
 
     # ==========================================================================
-    # SOURCE
+    # TARGET
     # ==========================================================================
-    my $sourceId;
-    if($source =~ /.*Category:(.+)>/){
-        $sourceId = id($1);
-    } else {
+    my $targetId;
+
+    # entity
+    ($capture) = $target =~ /.*entity\/(.+)>/;
+    if($capture){
+        $targetId = $capture;
+    }
+
+    # target not found
+    if(!$capture){
         next;
     }
 
     # ==========================================================================
     # OUTPUT
     # ==========================================================================
-    print "$sourceId\tcategory\t$targetId\n";
+    #print "$sourceId\t$typeId\t$targetId\n"
 }

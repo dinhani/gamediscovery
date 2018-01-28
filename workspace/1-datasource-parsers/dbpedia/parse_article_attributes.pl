@@ -15,20 +15,22 @@ while(<>){
     # ==========================================================================
     # SOURCE
     # ==========================================================================
-    (my $capture) = $source =~ /.*resource\/(.+)>/;
-    if(!$capture){
-        next
+    my $sourceId;
+    if($source =~ /.*resource\/(.+)>/){
+        $sourceId = id($1);
+    } else {
+        next;
     }
-    my $sourceId = id($capture);
 
     # ==========================================================================
     # TYPE
     # ==========================================================================
-    ($capture) = $type =~ /.*property\/(.+)>/;
-    if(!$capture){
-        next
+    my $typeId;
+    if($type =~ /.*property\/(.+)>/){
+        $typeId = id($1);
+    } else {
+        next;
     }
-    my $typeId = id($capture);
 
     # ==========================================================================
     # TARGET
@@ -36,30 +38,16 @@ while(<>){
     my $targetId;
 
     # parse target (entity)
-    ($capture) = $target =~ /.*resource\/(.+)>/;
-    if($capture){
-        $targetId = id($capture)
-    }
-
+    if($target =~ /.*resource\/(.+)>/){
+        $targetId = id($1)
     # parse target (label)
-    if(!$capture){
-        ($capture) = $target =~ /\"(.+)\"\@en/;
-        if($capture){
-            $targetId = $capture;
-        }
-    }
-
-    # parse target (number)
-    if(!$capture){
-        ($capture) = $target =~ /\"(.+)\"\^\^/;
-        if($capture){
-            $targetId = $capture;
-        }
-    }
-
-    # target not found
-    if(!$capture){
-       next;
+    } elsif($target =~ /\"(.+)\"\@en/){
+        $targetId = id($1)
+    # parse target (anything else)
+    } elsif($target =~ /\"(.+)\"\^\^/){
+        $targetId = id($1)
+    } else {
+        next;
     }
 
     # ==========================================================================
