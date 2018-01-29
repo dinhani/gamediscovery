@@ -30,10 +30,11 @@ echo ""
 echo "========================================================================="
 echo "Installing tools"
 echo "========================================================================="
-sudo apt-get --assume-yes install mcedit
+sudo apt-get --assume-yes install curl
 sudo apt-get --assume-yes install htop
-sudo apt-get --assume-yes install tree
+sudo apt-get --assume-yes install mcedit
 sudo apt-get --assume-yes install parallel
+sudo apt-get --assume-yes install tree
 
 echo ""
 echo "========================================================================="
