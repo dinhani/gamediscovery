@@ -52,24 +52,17 @@ mkdir ~/.m2
 
 echo ""
 echo "========================================================================="
-echo "Installing Neo4J"
-echo "========================================================================="
-sudo apt-get --assume-yes install neo4j
-
-echo ""
-echo "========================================================================="
-echo "Installing PostgreSQL"
-echo "========================================================================="
-sudo apt-get --assume-yes install postgresql-9.6
-sudo -u postgres psql --username=postgres --dbname=postgres --command="ALTER USER postgres WITH PASSWORD '123';"
-sudo -u postgres psql --username=postgres --dbname=postgres --command="CREATE DATABASE gamediscovery ENCODING 'utf-8' LC_CTYPE 'en_US.utf8' LC_COLLATE 'en_US.utf8' TEMPLATE template0;"
-
-echo ""
-echo "========================================================================="
 echo "Installing Perl"
 echo "========================================================================="
 sudo apt-get --assume-yes install perl
 sudo cpan Switch
+
+echo ""
+echo "========================================================================="
+echo "Installing NodeJS"
+echo "========================================================================="
+sudo apt-get --assume-yes install nodejs
+sudo apt-get --assume-yes install npm
 
 echo ""
 echo "========================================================================="
@@ -86,3 +79,17 @@ sudo jgem install bundler
 cd workspace
 bundle install
 jbundle install
+
+echo ""
+echo "========================================================================="
+echo "Installing Neo4J"
+echo "========================================================================="
+sudo apt-get --assume-yes install neo4j
+
+echo ""
+echo "========================================================================="
+echo "Installing PostgreSQL"
+echo "========================================================================="
+sudo apt-get --assume-yes install postgresql-9.6
+sudo -u postgres psql --username=postgres --dbname=postgres --command="ALTER USER postgres WITH PASSWORD '123';"
+sudo -u postgres psql --username=postgres --dbname=postgres --command="CREATE DATABASE gamediscovery ENCODING 'utf-8' LC_CTYPE 'en_US.utf8' LC_COLLATE 'en_US.utf8' TEMPLATE template0;"
