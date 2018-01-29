@@ -59,13 +59,6 @@ sudo cpan Switch
 
 echo ""
 echo "========================================================================="
-echo "Installing NodeJS"
-echo "========================================================================="
-sudo apt-get --assume-yes install nodejs
-sudo apt-get --assume-yes install npm
-
-echo ""
-echo "========================================================================="
 echo "Installing JRuby"
 echo "========================================================================="
 sudo apt-get --assume-yes install jruby
