@@ -45,6 +45,9 @@ while(<>){
         $targetId = id($1)
     # parse target (anything else)
     } elsif($target =~ /\"(.+)\"\^\^/){
+        if(length($1) > 1000){
+            next;
+        }
         $targetId = id($1)
     } else {
         next;
