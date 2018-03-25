@@ -1,6 +1,5 @@
-# ==============================================================================
-# MAIN
-# ==============================================================================
+library(SPARQL)
+
 QueryWikidata = function(entityPrefix, entityCondition, additionalEntityPrefix = "", additionalEntityCondition = "", entityLink = FALSE){
     endpoint = "https://query.wikidata.org/sparql"
 

@@ -1,19 +1,21 @@
 # ==============================================================================
 # LIBRARIES
 # ==============================================================================
+library(stringr)
 source("../../_shared/ReadWikidataRaw.r", encoding="UTF-8")
 source("../../_shared/DownloadPages.r",   encoding="UTF-8")
 
 # ==============================================================================
-# READ IDS
+# READ LINKS
 # ==============================================================================
-games.ids = ReadWikidataRaw("Game", "MobyGames")$MobyGames
+games.links = ReadWikidataRaw("Game")$GameLink
+games.links = str_extract(games.links, "(?<=<).+(?=>)")
 
 # ==============================================================================
-# DOWNLOAD
+# DOWNLOAD PAGES
 # ==============================================================================
 DownloadPages(
-  games.ids,
-  FUN_LINK = function(id){ paste0("http://www.mobygames.com/game/", id) },
-  FUN_FILE = function(id){ paste0(id, ".html") }
+  games.links,
+  FUN_LINK = function(link){ link },
+  FUN_FILE = function(link){ paste0(str_extract(link, "(?<=wiki/).+"), ".html") }
 )

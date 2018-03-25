@@ -3,6 +3,7 @@
 
 # DATABASE FILES
 *.db
+*.csv
 
 # LOG files
 *.log
@@ -47,5 +48,4 @@ Jarfile.lock
 .vagrant
 
 # PROJECT SPECIFIC
-workspace/1-datasource-parsers/_new2/wikidata/data
 workspace/3-site/src/main/resources/static/dist
