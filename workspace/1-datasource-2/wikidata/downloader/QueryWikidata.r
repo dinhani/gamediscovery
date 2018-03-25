@@ -1,6 +1,6 @@
 library(SPARQL)
 
-QueryWikidata = function(entityPrefix, entityCondition, additionalEntityPrefix = "", additionalEntityCondition = "", entityLink = FALSE){
+QueryWikidata = function(entityPrefix, entityCondition, additionalEntityPrefix = "", additionalEntityCondition = "", entityLink = FALSE, additionalEntityLink = FALSE){
     endpoint = "https://query.wikidata.org/sparql"
 
     # ==========================================================================
@@ -11,7 +11,10 @@ QueryWikidata = function(entityPrefix, entityCondition, additionalEntityPrefix =
         query = paste(query, "?${entityPrefix}Link")
     }
     if(additionalEntityPrefix != ""){
-        query = paste(query, "?${additionalEntityPrefix} ?${additionalEntityPrefix}Label ?${additionalEntityPrefix}Link")
+        query = paste(query, "?${additionalEntityPrefix} ?${additionalEntityPrefix}Label")
+        if(additionalEntityLink){
+            query = paste(query, "?${additionalEntityPrefix}Link")
+        }
     }
 
     # ==========================================================================
@@ -36,11 +39,13 @@ QueryWikidata = function(entityPrefix, entityCondition, additionalEntityPrefix =
     # ==========================================================================
     if(additionalEntityCondition != ""){
         query = paste(query, "?${entityPrefix} ${additionalEntityCondition} ?${additionalEntityPrefix} .")
-        query = paste(query, "OPTIONAL {  ")
-        query = paste(query, "?${additionalEntityPrefix}Link schema:about ?${additionalEntityPrefix} .")
-        query = paste(query, "?${additionalEntityPrefix}Link schema:inLanguage 'en' .")
-        query = paste(query, "?${additionalEntityPrefix}Link schema:isPartOf <https://en.wikipedia.org/> .")
-        query = paste(query, "}")
+        if(additionalEntityLink){
+            query = paste(query, "OPTIONAL {  ")
+            query = paste(query, "?${additionalEntityPrefix}Link schema:about ?${additionalEntityPrefix} .")
+            query = paste(query, "?${additionalEntityPrefix}Link schema:inLanguage 'en' .")
+            query = paste(query, "?${additionalEntityPrefix}Link schema:isPartOf <https://en.wikipedia.org/> .")
+            query = paste(query, "}")
+        }
     }
 
     # ==========================================================================
